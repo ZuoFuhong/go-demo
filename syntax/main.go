@@ -1,5 +1,5 @@
 // 语法篇
-package example
+package syntax
 
 import (
 	"container/list"
@@ -15,12 +15,12 @@ import (
 // ------------------------变量和数据类型------------------------------//
 
 // 变量的语法
-func variableSyntax()  {
+func variableSyntax() {
 	// 变量声明（自动对内存区域进行初始化操作，初始化默认值）
 	var name string
 	// 批量声明
 	var (
-		age int
+		age  int
 		flag bool
 	)
 	// 声明变量时，赋予默认值
@@ -30,20 +30,20 @@ func variableSyntax()  {
 	var city = "wuhan"
 
 	// 短变量（只能方法中使用）
-	gender:= "wucang"
+	gender := "wucang"
 
 	fmt.Println(name, age, flag, contury, city, gender)
 
 	// 多重赋值（变量的左值和右值按从左到右的顺序赋值）
 	city, gender = gender, city
-	fmt.Println("city: " + city, "gender: " + gender)
+	fmt.Println("city: "+city, "gender: "+gender)
 
 	// 匿名变量
 	_ = time.Now().Day()
 }
 
 // 数据类型
-func dataTypeSyntax () {
+func dataTypeSyntax() {
 	// 整形
 	var number int8 = 23
 	fmt.Println("number: ", number)
@@ -61,7 +61,6 @@ func dataTypeSyntax () {
 	fmt.Printf("pi：%.2f\n", price)
 
 	fmt.Println("*********************************")
-
 
 	// 布尔类型
 	aBool := true
@@ -99,7 +98,7 @@ func dataTypeSyntax () {
 }
 
 // 指针语法
-func pointerSyntax()  {
+func pointerSyntax() {
 	var hint string = "hello"
 
 	// 对字符串取地址, ptr类型为*string
@@ -139,11 +138,11 @@ func pointerSyntax()  {
 }
 
 // 常量语法
-func constantsSyntax()  {
+func constantsSyntax() {
 	const size = 4
 	const (
 		pi = 3.141592
-		e = 2.718281
+		e  = 2.718281
 	)
 	fmt.Println("size:", size)
 	fmt.Println("pi: ", pi, " e: ", e)
@@ -160,7 +159,7 @@ func constantsSyntax()  {
 	// 一个 const 声明内的每一行常量声明，将会自动套用前面的 iota 格式，并自动增加。这种模式有点类似于电子表格中的单元格自动填充。
 	// 只需要建立好单元格之间的变化关系，拖动右下方的小点就可以自动生成单元格的值。
 	const (
-		Arrow Weapon = iota    // 开始生成枚举值, 默认为0
+		Arrow Weapon = iota // 开始生成枚举值, 默认为0
 		Shuriken
 		SniperRifle
 		Rifle
@@ -171,7 +170,7 @@ func constantsSyntax()  {
 }
 
 // 类型别名
-func typeAliasSyntax()  {
+func typeAliasSyntax() {
 
 	// 将NewInt定义为int类型
 	type NewInt int
@@ -200,7 +199,7 @@ func typeAliasSyntax()  {
 // -----------------------------容器-----------------------------------//
 
 // 数组
-func arraySyntax()  {
+func arraySyntax() {
 	// 数组
 	const size = 4
 	var arr [size]int
@@ -229,7 +228,7 @@ func arraySyntax()  {
 }
 
 // 切片
-func sliceSyntax()  {
+func sliceSyntax() {
 	var nameList = [...]string{"dazuo", "wang", "li"}
 	// 取出元素不包含结束位置对应的索引
 	var subList = nameList[1:2]
@@ -283,7 +282,7 @@ func sliceSyntax()  {
 }
 
 // map映射
-func mapSyntax()  {
+func mapSyntax() {
 	// 使用make创建map
 	s := make(map[string]string)
 	s["name"] = "dazuo"
@@ -330,7 +329,7 @@ func mapSyntax()  {
 }
 
 // list列表
-func listSyntax () {
+func listSyntax() {
 	// 创建一个列表实例
 	myList := list.New()
 	// 将 fist 字符串插入到列表的尾部，此时列表是空的，插入后只有一个元素。
@@ -364,7 +363,7 @@ func listSyntax () {
 // -----------------------------流程控制-----------------------------------//
 
 // 流程控制
-func processControlSyntax()  {
+func processControlSyntax() {
 	num := 10
 	if num > 0 {
 		fmt.Println("yes")
@@ -399,12 +398,12 @@ func processControlSyntax()  {
 	// switch结构
 	var a = "hello"
 	switch a {
-		case "hello":
-			fmt.Println(1)
-		case "world":
-			fmt.Println(2)
-		default:
-			fmt.Println(0)
+	case "hello":
+		fmt.Println(1)
+	case "world":
+		fmt.Println(2)
+	default:
+		fmt.Println(0)
 	}
 
 	// 一个分支多个值
@@ -417,8 +416,8 @@ func processControlSyntax()  {
 	// 分支表达式
 	var r int = 11
 	switch {
-		case r > 10 && r < 20:
-			fmt.Println(r)
+	case r > 10 && r < 20:
+		fmt.Println(r)
 	}
 
 	fmt.Println("*********************************")
@@ -435,13 +434,13 @@ func processControlSyntax()  {
 	return
 
 	// 标签
-	breakHere:
-		fmt.Println("done")
+breakHere:
+	fmt.Println("done")
 
 	fmt.Println("*******************************")
 
 	fmt.Println("跳出指定循环")
-	OuterLoop:
+OuterLoop:
 	for i := 0; i < 2; i++ {
 		for j := 0; j < 5; j++ {
 			switch j {
@@ -457,7 +456,7 @@ func processControlSyntax()  {
 
 	fmt.Println("********************************")
 	// continue 将结束当前循环，开启下一次的外层循环，而不是内层的循环。
-	OuterFlag:
+OuterFlag:
 	for i := 0; i < 2; i++ {
 		for j := 0; j < 5; j++ {
 			switch j {
@@ -479,7 +478,7 @@ func Connect() int {
 // -----------------------------函数-----------------------------------//
 
 // 函数语法
-func funcSyntax()  {
+func funcSyntax() {
 	// 函数变量：在 Go 语言中，函数也是一种类型，可以和其他类型一样被保存在变量中。
 	f := fire
 	fmt.Printf("f type: %T\n", f)
@@ -531,7 +530,7 @@ func funcSyntax()  {
 }
 
 // 回调函数
-func visit(myList []int, f func(int))  {
+func visit(myList []int, f func(int)) {
 	for _, v := range myList {
 		f(v)
 	}
@@ -543,7 +542,7 @@ func fire(msg string) string {
 }
 
 // 链式调用
-func chainInvoke()  {
+func chainInvoke() {
 	// 待处理的字符串列表
 	myList := []string{
 		"go scanner",
@@ -573,7 +572,7 @@ func removePrefix(str string) string {
 }
 
 // 字符串处理函数
-func stringProcess(myList []string, chain []func(string)string)  {
+func stringProcess(myList []string, chain []func(string) string) {
 	for k, v := range myList {
 		result := v
 
@@ -589,20 +588,17 @@ func stringProcess(myList []string, chain []func(string)string)  {
 //-------------------------- 函数实现接口 ---------------------//
 // 调用器接口
 type Invoker interface {
-	Call (interface{})
+	Call(interface{})
 }
 
 // 函数定义为类型
-type FuncCaller func (interface{})
+type FuncCaller func(interface{})
 
 // 实现接口的方法
-func (f FuncCaller) Call (p interface{}) {
+func (f FuncCaller) Call(p interface{}) {
 	// 调用f函数本体
 	f(p)
 }
-
-
-
 
 //-------------------------- 定义错误 --------------------------//
 
@@ -624,7 +620,7 @@ func (e *errorString) Error() string {
 }
 
 // 运行时错误
-func errorSyntax()  {
+func errorSyntax() {
 	// 使用 errors 包进行错误的定义
 	var err = errors.New("this is an error")
 	// 输出错误信息
@@ -638,7 +634,7 @@ func errorSyntax()  {
 }
 
 // 服务宕机恢复
-func panicSyntax()  {
+func panicSyntax() {
 	// 延迟处理函数
 	defer func() {
 		// 发生宕机时，获取panic传递的上下文并打印
@@ -668,7 +664,7 @@ type Point struct {
 }
 
 // 结构体语法
-func structSyntax()  {
+func structSyntax() {
 	// 1.基本的实例化形式
 	p := Point{2, 3}
 	fmt.Println(p.x)
@@ -701,7 +697,7 @@ func structSyntax()  {
 	}
 	fmt.Println(p5.x)
 
-	p6 := Point{2 ,3}
+	p6 := Point{2, 3}
 	fmt.Println(p6.x)
 
 	// 5.初始化匿名结构体
@@ -764,7 +760,7 @@ type Color struct {
 }
 
 // 结构体添加方法
-func structMethodSyntax()  {
+func structMethodSyntax() {
 	// 1.面向过程的实现方法
 	ins := new(Bag)
 	Insert(ins, 1)
@@ -790,14 +786,14 @@ func structMethodSyntax()  {
 	fmt.Println("***************************")
 
 	// 4.类型内嵌
-	ins2 := Data {
-		int: 10,
+	ins2 := Data{
+		int:     10,
 		float32: 2.14,
-		bool: true,
+		bool:    true,
 	}
 	fmt.Println(ins2)
 
-	ins3 := Data {
+	ins3 := Data{
 		10,
 		2.14,
 		true,
@@ -839,11 +835,10 @@ type DataWriter interface {
 
 // 定义文件结构，用于实现DataWriter
 type file struct {
-
 }
 
 // 接收器添加方法WriteData，实现了DataWriter接口
-func (d *file) WriteData(data interface{}) error  {
+func (d *file) WriteData(data interface{}) error {
 	// 模拟写入数据
 	fmt.Println("writeData：", data)
 	return nil
@@ -874,7 +869,7 @@ func (b *bird) Work() {
 }
 
 // 接口语法
-func interfaceSyntax()  {
+func interfaceSyntax() {
 	f := new(file)
 
 	// 声明一个接口
@@ -919,7 +914,7 @@ func interfaceSyntax()  {
 
 		// 判断是否会行走
 		w, isWorker := obj.(Worker)
-		fmt.Println("name：", name,  " w: ", w, " isWorker: ", isWorker)
+		fmt.Println("name：", name, " w: ", w, " isWorker: ", isWorker)
 
 		if isFlyer {
 			fmt.Printf("name：%s isFlyer: %v\n", name, isFlyer)

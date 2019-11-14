@@ -1,5 +1,5 @@
 // go get github.com/gomodule/redigo/redis
-package example
+package redis
 
 import (
 	"github.com/garyburd/redigo/redis"

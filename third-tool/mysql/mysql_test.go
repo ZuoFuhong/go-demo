@@ -1,5 +1,5 @@
 // go get github.com/go-sql-driver/mysql
-package example
+package mysql
 
 import (
 	"database/sql"
@@ -9,14 +9,14 @@ import (
 	"testing"
 )
 
-func TestMysql (t *testing.T) {
+func TestMysql(t *testing.T) {
 	db, e := sql.Open("mysql", "dazuo:123456@tcp(47.98.199.80:3306)/mooc")
 	if e != nil {
 		log.Fatal("Connect to mysql error：", e)
 		return
 	}
 	stmt, e := db.Prepare("SELECT * FROM `user` WHERE id = ?")
-	if e != nil  {
+	if e != nil {
 		log.Fatal("Prepare sql error：", e)
 		return
 	}
@@ -32,11 +32,11 @@ func TestMysql (t *testing.T) {
 		t.Log("strings: ", strings)
 
 		var (
-			id int
-			username string
-			password string
-			email 	 string
-			phone	 string
+			id          int
+			username    string
+			password    string
+			email       string
+			phone       string
 			create_time string
 			update_time string
 		)

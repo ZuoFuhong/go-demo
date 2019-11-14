@@ -1,2 +1,4 @@
-# go-demo
-2019年5月4日 go的示例
+## go-demo
+
+- syntax：基本语法
+- third-tool：第三方包的使用
