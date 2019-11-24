@@ -7,12 +7,16 @@ import (
 )
 
 func main() {
-	amount := int64(100)
-	for count := int64(10); 0 < count; count-- {
-		x := DoubleAverage(count, amount)
-		amount -= x
+	count, amount := int64(10), int64(100)
+	remain := amount
+	sum := int64(0)
+	for i := int64(0); i < count; i++ {
+		x := DoubleAverage(count-i, remain)
+		remain -= x
 		fmt.Println(x)
+		sum += x
 	}
+	fmt.Print("sum: ", sum)
 }
 
 /*
