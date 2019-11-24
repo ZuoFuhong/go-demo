@@ -17,7 +17,7 @@ func main() {
 
 /*
 	抢红包-二倍均值算法
-	剩余红包金额为M，剩余人数为N，那么有如下公式：
+	剩余可用的红包金额为M，剩余人数为N，那么有如下公式：
 	每次抢到的金额 = 随机区间 （0， M / N x 2）
 */
 func DoubleAverage(count, amount int64) int64 {
