@@ -35,6 +35,17 @@ func Test_HttpServer(t *testing.T) {
 	_ = http.ListenAndServe("127.0.0.1:8080", nil)
 }
 
+// http服务器
+func Test_HttpServer2(t *testing.T) {
+	server := http.Server{
+		Addr: "127.0.0.1:3031",
+		Handler: http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+			_, _ = w.Write([]byte("hello client"))
+		}),
+	}
+	_ = server.ListenAndServe()
+}
+
 // 反向代理
 // NewSingleHostReverseProxy 返回一个新的 ReverseProxy， 将URLs 请求路由到targe的指定的scheme, host, base path 。
 // 如果target的path是"/base" ，client请求的URL是 "/dir", 则target 最后转发的请求就是 /base/dir。
