@@ -69,7 +69,7 @@ func (s *ServerPool) markBackendStatus(backend *url.URL, alive bool) {
 	}
 }
 
-// 获取后端服务的连接
+// 获取后端服务的连接（轮询调度算法Round-Robin）
 func (s *ServerPool) getNextPeer() *Backend {
 	next := s.nextIndex()
 	l := len(s.backends) + next
@@ -115,7 +115,7 @@ const (
 	Retry
 )
 
-// TODO:
+// 提取请求上下文参数
 func getAttemptsFromContext(r *http.Request) int {
 	if attempts, ok := r.Context().Value(Attempts).(int); ok {
 		return attempts
