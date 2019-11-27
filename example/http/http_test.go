@@ -1,6 +1,7 @@
 package example
 
 import (
+	"context"
 	"fmt"
 	"net/http"
 	"net/http/httputil"
@@ -26,6 +27,13 @@ func Test_HttpFileServer(t *testing.T) {
 // http服务器
 func Test_HttpServer(t *testing.T) {
 	http.HandleFunc("/hello", func(resp http.ResponseWriter, req *http.Request) {
+		// 设置上下文参数（WithValue返回父节点的一个副本）
+		cx := context.WithValue(req.Context(), "param", 88)
+		// 提取上下文参数
+		if val, ok := cx.Value("param").(int); ok {
+			fmt.Printf("param: %d\n", val)
+		}
+
 		fmt.Println("hello")
 		headers := req.Header
 		fmt.Println(headers["Cookie"])
