@@ -141,6 +141,20 @@ func TestTypeConv(t *testing.T) {
 
 	// 6.Append 系列函数用于将指定类型转换成字符串后追加到一个切片中，
 	// 其中包含 AppendBool()、AppendFloat()、AppendInt()、AppendUint()。
+
+	// 7.interface类型转换
+	var e interface{}
+	e = "32"
+
+	// 如下转换，会跑异常
+	//_ = e.(int)
+
+	f, ok := e.(int)
+	// ok 是bool类型，判断转换状态
+	fmt.Printf("f = %v, ok = %v\n", f, ok)
+
+	g, ok := e.(string)
+	fmt.Printf("g = %v, ok = %v\n", g, ok)
 }
 
 /*
