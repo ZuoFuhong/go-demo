@@ -78,6 +78,8 @@ func TestDataTypeSyntax(t *testing.T) {
 	fmt.Println("*********************************")
 
 	// 字符串
+	// 和C语言的字符串不同，Go语言中的字符串内容是不可变更的。在字符串作为参数传递给fmt.Println函数时，
+	// 字符串的内容并没有被复制——传递的仅仅是字符串的地址和长度（字符串的结构在reflect.StringHeader中定义）
 	str := "hello world"
 	fmt.Println("str: " + str)
 	fmt.Printf("str: %s\n", str)
