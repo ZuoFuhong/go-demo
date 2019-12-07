@@ -1,14 +1,17 @@
 package main
 
 import (
+	"bufio"
 	"flag"
 	"fmt"
+	"log"
 	"os"
+	"strings"
 )
 
 // flag包 解析命令行参数
 func main() {
-	multilParse()
+	scannerStdinParse()
 }
 
 // 简单的示例
@@ -36,6 +39,31 @@ func multilParse() {
 	// 解析命令行参数
 	flag.Parse()
 	fmt.Println(name, age)
-	//返回命令行参数后的其他参数
-	fmt.Println(flag.Args())
+}
+
+// 解析控制台输入
+func scannerStdinParse() {
+	var (
+		name string
+		age  int
+	)
+	flag.StringVar(&name, "name", "dazuo", "姓名")
+	flag.IntVar(&age, "age", 23, "年龄")
+
+	fmt.Println("等待输入...")
+	scan := bufio.NewScanner(os.Stdin)
+	for scan.Scan() {
+		line := scan.Text()
+		fmt.Println(line)
+
+		//var paramList = []string{"-name", "da", "-age", "22"}
+
+		paramList := strings.Split(line, " ")
+		e := flag.CommandLine.Parse(paramList)
+		if e != nil {
+			fmt.Print("命令行参数解析异常！")
+			return
+		}
+		log.Printf("name = %s age = %d\n", name, age)
+	}
 }
