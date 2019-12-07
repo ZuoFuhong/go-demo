@@ -1,18 +1,21 @@
-// go get github.com/gomodule/redigo/redis
 package redis
 
 import (
-	"github.com/garyburd/redigo/redis"
+	"github.com/go-redis/redis"
+	"log"
 	"testing"
 )
 
-func TestRedis(t *testing.T) {
-	conn, e := redis.Dial("tcp", "47.98.199.80:6379")
+func Test_Redis(t *testing.T) {
+	client := redis.NewClient(&redis.Options{
+		Addr:     "47.98.199.80:6379",
+		Password: "myredis", // no password set
+		DB:       0,         // use default DB
+	})
+
+	val, e := client.Get("name").Result()
 	if e != nil {
-		t.Log("Connect to redis error", e)
-		return
+		panic(e)
 	}
-	_, _ = conn.Do("AUTH", "123456")
-	s, e := redis.String(conn.Do("GET", "name"))
-	t.Log(s)
+	log.Print(val)
 }
