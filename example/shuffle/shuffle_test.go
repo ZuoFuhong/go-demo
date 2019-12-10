@@ -12,6 +12,7 @@ import (
 // Fisher_Yates算法
 // 取两个列表，一个是洗牌前的序列A{1,2….54)，一个用来放洗牌后的序列B，B初始为空
 // 随机从A取一张牌加入B末尾
+// 复杂度：空间O（1），时间O（n^2)
 func Test_FisherYates(t *testing.T) {
 	const len = 54
 	var aLen = len
@@ -46,7 +47,8 @@ func Test_FisherYates(t *testing.T) {
 
 // Knuth_Durstenfeld算法
 // Knuth 和Durstenfeld 在Fisher 等人的基础上对算法进行了改进。 每次从未处理的数据中随机取出一个数字，然后把该数字放在数组的尾部，
-// 即数组尾部存放的是已经处理过的数字 。 这是一个原地打乱顺序的算法，算法时间复杂度也从Fisher算法的 O ( n 2 )提升到了 O ( n )。
+// 即数组尾部存放的是已经处理过的数字。
+// 这是一个原地打乱顺序的算法，算法时间复杂度也从Fisher算法的 O ( n 2 )提升到了 O ( n )。
 func Test_KnuthDurstenfeld(t *testing.T) {
 	var aList [54]int
 	for a := 0; a < len(aList); a++ {
