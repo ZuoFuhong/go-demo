@@ -507,10 +507,13 @@ func TestProcessControlSyntax(t *testing.T) {
 	fmt.Println("*********************************")
 
 	// switch结构
+	// 不需要用break明确退出一个case
+	// 只有在case中明确添加fallthrough关键字，才会继续执行紧跟的下一个case；
 	var a = "hello"
 	switch a {
 	case "hello":
 		fmt.Println(1)
+		fallthrough
 	case "world":
 		fmt.Println(2)
 	default:
