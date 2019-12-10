@@ -1,15 +1,10 @@
 package main
 
 import (
-	"encoding/json"
 	"fmt"
 	"go-demo/example/chat/common"
 	"log"
 	"net"
-)
-
-var (
-	userCache map[string]net.Conn
 )
 
 // 服务端
@@ -20,41 +15,24 @@ func main() {
 	checkError(e)
 	fmt.Print("server run in 127.0.0.1:8888\n")
 	for {
-		conn, e := listener.Accept()
+		conn, e := listener.AcceptTCP()
 		if e != nil {
 			continue
 		}
-		go handleClient(conn)
-	}
-}
-
-// 处理客户端消息
-func handleClient(conn net.Conn) {
-	userOnline(conn)
-
-	var buf [512]byte
-	for {
-		n, err := conn.Read(buf[0:])
-		if err != nil {
-			return
-		}
-		messageEntity := new(common.MessageEntity)
-		err = json.Unmarshal(buf[0:n], &messageEntity)
-		if err != nil {
-			log.Print("参数解析异常！")
-			return
-		}
-		transpondToUser(messageEntity)
+		e = conn.SetKeepAlive(true)
+		context := common.NewConnContext(conn)
+		userOnline(context)
+		go context.DoConn()
 	}
 }
 
 // 新用户上线
-func userOnline(conn net.Conn) {
-	if userCache == nil {
-		userCache = make(map[string]net.Conn)
+func userOnline(c *common.ConnContext) {
+	if common.UserCache == nil {
+		common.UserCache = make(map[string]*common.ConnContext)
 	}
-	addr := conn.RemoteAddr()
-	userCache[addr.String()] = conn
+	addr := c.Codec.Conn.RemoteAddr()
+	common.UserCache[addr.String()] = c
 	log.Printf("新用户上线：%s", addr.String())
 }
 
@@ -62,19 +40,5 @@ func checkError(err error) {
 	if err != nil {
 		log.Fatal("服务端启动失败！", err.Error())
 		return
-	}
-}
-
-// 转发消息给指定用户
-func transpondToUser(messageEntity *common.MessageEntity) {
-	conn := userCache[messageEntity.ToUser]
-	if conn != nil {
-		bytes, e := json.Marshal(messageEntity)
-		if e != nil {
-			log.Print("发送消息发生异常！")
-			return
-		}
-		log.Printf("转发消息%v", messageEntity)
-		_, _ = conn.Write(bytes)
 	}
 }
