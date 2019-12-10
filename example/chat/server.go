@@ -21,19 +21,8 @@ func main() {
 		}
 		e = conn.SetKeepAlive(true)
 		context := common.NewConnContext(conn)
-		userOnline(context)
 		go context.DoConn()
 	}
-}
-
-// 新用户上线
-func userOnline(c *common.ConnContext) {
-	if common.UserCache == nil {
-		common.UserCache = make(map[string]*common.ConnContext)
-	}
-	addr := c.Codec.Conn.RemoteAddr()
-	common.UserCache[addr.String()] = c
-	log.Printf("新用户上线：%s", addr.String())
 }
 
 func checkError(err error) {

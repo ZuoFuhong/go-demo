@@ -105,9 +105,9 @@ func initConn(port int) net.Conn {
 // 处理服务端消息
 func handlePackage(p common.Package) {
 	switch common.PackageType(p.Code) {
-	case common.PackageType_PT_HEARTBEAT:
+	case common.PackagetypePtHeartbeat:
 		fmt.Println("收到服务端心跳响应：" + string(p.Content))
-	case common.PackageType_PT_MESSAGE:
+	case common.PackagetypePtMessage:
 		fmt.Println("客户端收到消息：" + string(p.Content))
 	default:
 		fmt.Println("无法处理的消息类型")
@@ -121,7 +121,7 @@ func sendMsg(toUser string, msg string) {
 		Msg:    msg,
 	}
 	data, _ := json.Marshal(entity)
-	err := codec.Encode(common.Package{Code: int(common.PackageType_PT_MESSAGE), Content: []byte(data)}, 10*time.Second)
+	err := codec.Encode(common.Package{Code: int(common.PackagetypePtMessage), Content: []byte(data)}, 10*time.Second)
 	if err != nil {
 		log.Print("消息发送异常！", err.Error())
 	} else {
@@ -133,7 +133,7 @@ func sendMsg(toUser string, msg string) {
 func Heartbeat() {
 	ticker := time.NewTicker(time.Second * 15)
 	for range ticker.C {
-		err := codec.Encode(common.Package{Code: int(common.PackageType_PT_HEARTBEAT), Content: []byte("PING")}, 10*time.Second)
+		err := codec.Encode(common.Package{Code: int(common.PackagetypePtHeartbeat), Content: []byte("PING")}, 10*time.Second)
 		if err != nil {
 			print(err)
 		}

@@ -38,7 +38,7 @@ func NewConnContext(conn *net.TCPConn) *ConnContext {
 
 func (c *ConnContext) DoConn() {
 	defer util.RecoverPanic()
-
+	userOnline(c)
 	for {
 		err := c.Codec.Conn.SetReadDeadline(time.Now().Add(ReadDeadline))
 		if err != nil {
@@ -70,13 +70,13 @@ func (c *ConnContext) DoConn() {
 // HandlePackage 处理消息包
 func (c *ConnContext) HandlePackage(p *Package) {
 	switch PackageType(p.Code) {
-	case PackageType_PT_HEARTBEAT:
+	case PackagetypePtHeartbeat:
 		fmt.Println("收到客户端心跳：" + string(p.Content))
-		err := c.Codec.Encode(Package{Code: int(PackageType_PT_HEARTBEAT), Content: []byte("PONG")}, 10*time.Second)
+		err := c.Codec.Encode(Package{Code: int(PackagetypePtHeartbeat), Content: []byte("PONG")}, WriteDeadline)
 		if err != nil {
 			log.Println("心跳响应异常")
 		}
-	case PackageType_PT_MESSAGE:
+	case PackagetypePtMessage:
 		messageEntity := MessageEntity{}
 		err := json.Unmarshal(p.Content, &messageEntity)
 		if err != nil {
@@ -112,19 +112,33 @@ func (c *ConnContext) Release() {
 	if err != nil {
 		log.Print(err)
 	}
+	userOffline(c)
 }
 
 // 转发消息给指定用户
 func (c *ConnContext) TranspondToUser(messageEntity *MessageEntity) {
-	connContext := UserCache[messageEntity.ToUser]
+	connContext := load(messageEntity.ToUser)
 	if connContext == nil {
 		fmt.Println("用户", messageEntity.ToUser, " 不在线")
 		return
 	}
-	e := connContext.Codec.Encode(Package{Code: int(PackageType_PT_MESSAGE), Content: []byte(messageEntity.Msg)}, 10*time.Second)
+	e := connContext.Codec.Encode(Package{Code: int(PackagetypePtMessage), Content: []byte(messageEntity.Msg)}, 10*time.Second)
 	if e != nil {
 		fmt.Println("转发消息失败")
 		return
 	}
 	fmt.Println("转发消息成功 toUser = ", messageEntity.ToUser)
+}
+
+// 新用户上线
+func userOnline(c *ConnContext) {
+	addr := c.Codec.Conn.RemoteAddr()
+	store(addr.String(), c)
+	fmt.Println("新用户上线：", addr.String())
+}
+
+func userOffline(c *ConnContext) {
+	addr := c.Codec.Conn.RemoteAddr()
+	delete(addr.String())
+	fmt.Println("用户离线：", addr.String())
 }
