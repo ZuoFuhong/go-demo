@@ -266,7 +266,10 @@ func TestTypeAliasSyntax(t *testing.T) {
 }
 
 /*
-	数组
+	数组是一个由固定长度的特定类型元素组成的序列，一个数组可以由零个或多个元素组成。因为数组的长度是固定的。
+    1.Go中的数组是值类型，换句话说，如果你将一个数组赋值给另外一个数组，那么，实际上就是将整个数组拷贝一份
+    2.如果Go中的数组作为函数的参数，那么实际传递的参数是一份数组的拷贝，而不是数组的指针。因此，在Go中如果
+      将数组作为函数的参数传递的话，那效率就肯定没有传递指针高了。
 */
 func TestArraySyntax(t *testing.T) {
 	// var 数组变量名 [元素数量]T
@@ -290,31 +293,36 @@ func TestArraySyntax(t *testing.T) {
 	fmt.Println(ageList)
 	fmt.Println("ageList length: ", len(ageList))
 
-	// 等效，编译时确定数组大小
-	var colorList = []string{"red", "yellow", "bule"}
-	fmt.Println(colorList)
+	// 比较两个数组是否相等
+	// 如果两个数组类型相同（包括数组的长度，数组中元素的类型）的情况下，我们可以直接通过较运算符（== 和!=）来判断两个数组是否相等，
+	// 只有当两个数组的所有元素都是相等的时候数组才是相等的，不能比较两个类型不同的数组，否则程序将无法完成编译。
+	aList := [...]int{1, 2, 3}
+	bList := [3]int{1, 2, 3}
+	fmt.Println("判断数据是否相等：", aList == bList)
 
 	// 遍历数组
-	for k, v := range colorList {
+	for k, v := range aList {
 		fmt.Println(k, v)
 	}
 	// 多维数组
-	var multiArr = [][]string{{"dazuo", "age"}, {"jin", "age"}}
+	var multiArr = [2][2]string{{"dazuo", "age"}, {"jin", "age"}}
 	fmt.Println(multiArr)
 
-	// 字符类型上下等效
-	barr := []byte{'h', 'e', 'l', 'l', 'o'}
-	barr2 := []byte("hello")
-	fmt.Println("arrb: ", barr)
-	fmt.Println("barr2: ", barr2)
+	// 验证数组是值传递
+	cList := aList
+	cList[0] = 3
+	fmt.Println("aList: ", aList)
 }
 
 /*
-	切片
+   切片（slice）是对数组的一个连续片段的引用，所以切片是一个引用类型（因此更类似于 C/C++ 中的数组类型，
+   或者 Python 中的 list 类型），这个片段可以是整个数组，也可以是由起始和终止索引标识的一些项的子集，
+   需要注意的是，终止索引标识的项不包括在切片内。
 */
 func TestSliceSyntax(t *testing.T) {
+	// 定义一个数组
 	var nameList = [...]string{"dazuo", "wang", "li"}
-	// 取出元素不包含结束位置对应的索引
+	// 1.从数组或切片生成新的切片（取出元素不包含结束位置对应的值）
 	var subList = nameList[1:2]
 	fmt.Println(subList)
 	fmt.Println("中间至尾部：", nameList[1:])
@@ -323,38 +331,58 @@ func TestSliceSyntax(t *testing.T) {
 
 	fmt.Println("********************************")
 
-	// 声明字符串切片
+	// 2.声明新的切片
+	// 除了可以从原有的数组或者切片中生成切片外，也可以声明一个新的切片，每一种类型都可以拥有其切片类型，
+	// 表示多个相同类型元素的连续集合，因此切片类型也可以被声明。
 	var strList []string
-	fmt.Println(strList)
-	// 声明但未使用的切片的默认值是 nil
-	// 本来会在{}中填充切片的初始化元素，这里没有填充，所以切片是空的。但此时 numListEmpty 已经被分配了内存，但没有元素。
-	// 因此和 nil 比较时是 false。
+	fmt.Println("strList: ", strList)
+	// 切片是动态结构，只能与 nil 判定相等，不能互相判定相等。
 	fmt.Println(strList == nil)
 
 	fmt.Println("********************************")
 
-	a := make([]int, 2)
+	// 3.使用 make() 函数构造切片
+	// 语法：make( []Type, size, cap )
+	// 其中 Type 是指切片的元素类型，size 指的是为这个类型分配多少个元素，cap 为预分配的元素数量，这个值设定后不影响 size，
+	// 只是能提前分配空间，降低多次分配空间造成的性能问题。
+	a := make([]int, 2, 10)
 	fmt.Println("a len: ", len(a))
 	fmt.Println("a value: ", a)
 
-	b := make([]int, 2, 10)
-	fmt.Println("b len: ", len(b))
+	fmt.Println("********************************")
 
-	// 每个切片会指向一片内存空间，这片空间能容纳一定数量的元素。当空间不能容纳足够多的元素时，切片就会进行“扩容”
-	c := append(b, 1)
+	// 4.内建函数 append() 可以为切片动态添加元素
+	// 每个切片会指向一片内存空间，这片空间能容纳一定数量的元素。当空间不能容纳足够多的元素时，切片就会进行“扩容”，返回新的切片
+	c := append(a, 1)
 	fmt.Println("c value: ", c)
-
-	// 修改切片值，操作的是同一片内存空间
-	c[0] = 3
-	fmt.Println(b)
 
 	fmt.Println("********************************")
 
-	// 复制切片
+	// 5.切片复制
+	// 内置函数 copy() 可以将一个数组切片复制到另一个数组切片中，如果加入的两个数组切片不一样大，就会按照其中较小的那个数组切片
+	// 的元素个数进行复制。
+	//
+	// 语法：copy( destSlice, srcSlice []T) int
+	// 其中 srcSlice 为数据来源切片，destSlice 为复制的目标（也就是将 srcSlice 复制到 destSlice），目标切片必须分配过空间
+	// 且足够承载复制的元素个数，并且来源和目标的类型必须一致，copy() 函数的返回值表示实际发生复制的元素个数。
 	var d = make([]int, 1, 10)
 	i := copy(d, c[:])
 	fmt.Println("copy count：", i)
 	fmt.Println("d value: ", d)
+
+	// 6.range关键字：循环迭代切片
+	// 当迭代切片时，关键字 range 会返回两个值，第一个值是当前迭代到的索引位置，第二个值是该位置对应元素值的一份副本，
+	// 而不是直接返回对该元素的引用。
+	slice := []int{10, 20, 30, 40}
+	for index, value := range slice {
+		fmt.Printf("Index: %d Value: %d\n", index, value)
+	}
+
+	// 7.多维切片
+	// 语法：var sliceName [][]...[]sliceType
+	// 其中，sliceName 为切片的名字，sliceType为切片的类型，每个[ ]代表着一个维度，切片有几个维度就需要几个[ ]。
+	multipSlice := [][]int{{10}, {100, 200}}
+	fmt.Println(multipSlice)
 }
 
 /*
