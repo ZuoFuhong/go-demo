@@ -1,0 +1,8 @@
+[database]
+url = "127.0.0.1:8066"
+username = "mycat"
+password = "mycat"
+
+[zookeeper]
+address = "127.0.0.1"
+port = 2181
