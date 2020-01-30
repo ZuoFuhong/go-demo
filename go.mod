@@ -10,6 +10,7 @@ require (
 	github.com/golang/snappy v0.0.1 // indirect
 	github.com/gorilla/websocket v1.4.1 // indirect
 	github.com/nsqio/go-nsq v1.0.7 // indirect
+	github.com/pkg/errors v0.8.0
 	github.com/spf13/viper v1.6.1 // indirect
 	go.uber.org/atomic v1.5.1 // indirect
 	go.uber.org/multierr v1.4.0 // indirect
