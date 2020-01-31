@@ -54,6 +54,23 @@ func TestInterfaceSyntax(t *testing.T) {
 	tmpWorker.Work()
 }
 
+// 接口类型查询
+// 接口查询有两层语义，一是查询一个接口变量底层绑定的底层变量的具体类型是什么，二是查询接口变量绑定 的底层变量是否还实现了 其他接口。
+// 1）i 必须是接口类型的变量；如果 i 是未初始化接口变量，则 v 的值是 nil
+// 2）case 字句后面可 以m~非接口类型名，也可以跟接口类型名，匹配是按照 case 子句的 顺序进行的。
+func Test_type_switch(t *testing.T) {
+	var b interface{} = Bird{}
+	switch v := b.(type) {
+	case Flyer:
+		fmt.Println("Flyer")
+		fmt.Printf("%T\n", v)
+	case Worker:
+		fmt.Println("error")
+	default:
+		fmt.Println("default")
+	}
+}
+
 // 空接口 + 类型断言
 // 语法：value, ok := x.(T)
 // 其中，x 表示一个接口的类型，T 表示一个具体的类型（也可为接口类型）。
