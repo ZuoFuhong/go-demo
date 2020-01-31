@@ -105,6 +105,13 @@ func TestDataTypeSyntax(t *testing.T) {
 	fmt.Printf("a: %d, 变量的类型：%T\n", a, a)
 	var b rune = '你'
 	fmt.Printf("b：%d, 变量的类型：%T\n", b, b)
+
+	// 字符串可以转换为字节数组
+	bytes := []byte(str)
+	fmt.Println(len(bytes))
+	// 也可以转换为 Unicode 的字数组
+	runes := []rune(str)
+	fmt.Println(runes)
 }
 
 /*
@@ -383,6 +390,16 @@ func TestSliceSyntax(t *testing.T) {
 	// 其中，sliceName 为切片的名字，sliceType为切片的类型，每个[ ]代表着一个维度，切片有几个维度就需要几个[ ]。
 	multipSlice := [][]int{{10}, {100, 200}}
 	fmt.Println(multipSlice)
+
+	// 8.切片长度len()和切片容量cap()
+	tmpArr := make([]int, 2, 6)
+	tmpArr = append(tmpArr, 1)
+	tmpArr = append(tmpArr, 2)
+	tmpArr = append(tmpArr, 3)
+	fmt.Println(tmpArr)
+
+	fmt.Println(len(tmpArr))
+	fmt.Println(cap(tmpArr))
 }
 
 /*
