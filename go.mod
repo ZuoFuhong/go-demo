@@ -9,6 +9,7 @@ require (
 	github.com/go-sql-driver/mysql v1.4.1
 	github.com/golang/snappy v0.0.1 // indirect
 	github.com/gorilla/websocket v1.4.1 // indirect
+	github.com/julienschmidt/httprouter v1.3.0 // indirect
 	github.com/nsqio/go-nsq v1.0.7 // indirect
 	github.com/pkg/errors v0.8.0
 	github.com/spf13/viper v1.6.1 // indirect
