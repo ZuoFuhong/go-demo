@@ -11,6 +11,7 @@ require (
 	github.com/gorilla/mux v1.7.4 // indirect
 	github.com/gorilla/websocket v1.4.1
 	github.com/julienschmidt/httprouter v1.3.0
+	github.com/justinas/alice v1.2.0 // indirect
 	github.com/onsi/ginkgo v1.12.0 // indirect
 	github.com/onsi/gomega v1.9.0 // indirect
 	github.com/pkg/errors v0.8.0
