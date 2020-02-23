@@ -12,10 +12,12 @@ require (
 	github.com/gorilla/websocket v1.4.1
 	github.com/julienschmidt/httprouter v1.3.0
 	github.com/justinas/alice v1.2.0 // indirect
+	github.com/magiconair/properties v1.8.1
 	github.com/onsi/ginkgo v1.12.0 // indirect
 	github.com/onsi/gomega v1.9.0 // indirect
 	github.com/pkg/errors v0.8.0
 	github.com/spf13/viper v1.6.1
+	github.com/stretchr/testify v1.5.1
 	go.uber.org/atomic v1.5.1 // indirect
 	go.uber.org/multierr v1.4.0 // indirect
 	go.uber.org/zap v1.10.0
