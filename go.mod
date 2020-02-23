@@ -7,6 +7,7 @@ require (
 	github.com/gin-gonic/gin v1.4.0
 	github.com/go-redis/redis v6.14.2+incompatible
 	github.com/go-sql-driver/mysql v1.4.1
+	github.com/gorilla/mux v1.7.4 // indirect
 	github.com/gorilla/websocket v1.4.1
 	github.com/julienschmidt/httprouter v1.3.0
 	github.com/onsi/ginkgo v1.12.0 // indirect
