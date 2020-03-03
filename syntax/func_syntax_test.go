@@ -174,32 +174,30 @@ func TestErrorSyntax(t *testing.T) {
 	var err = errors.New("this is an error")
 	// 输出错误信息
 	fmt.Println(err.Error())
+}
 
-	// 使用自定义错误
-	err = tokenError("occur error")
-	if err != nil {
-		fmt.Println(err.Error())
+// 8.自定义一个错误（实现错误接口，返回错误描述）
+type TokenError struct {
+	ErrMsg string
+}
+
+func (e TokenError) Error() string {
+	return e.ErrMsg
+}
+
+func Test_TokenError(t *testing.T) {
+	var err error = TokenError{"Token is invalid."}
+	switch err.(type) {
+	case TokenError:
+		fmt.Println("1")
+	case runtime.Error:
+		fmt.Println("2")
+	default:
+		fmt.Println("3")
 	}
 }
 
-// 自定义一个错误
-func tokenError(text string) error {
-	// 实例化结构体，并初始化结构体
-	var errorStr = &errorString{text}
-	return errorStr
-}
-
-// 定义结构体（包含错误字符串）
-type errorString struct {
-	s string
-}
-
-// 结构体添加方法（实现错误接口，返回错误描述）
-func (e *errorString) Error() string {
-	return e.s
-}
-
-// 8.服务宕机恢复
+// 9.服务宕机恢复
 func TestPanicSyntax(t *testing.T) {
 
 	defer func() {
