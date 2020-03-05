@@ -1,6 +1,7 @@
 package syntax
 
 import (
+	"container/list"
 	"encoding/json"
 	"fmt"
 	"testing"
@@ -132,4 +133,35 @@ func TestStructUnmarshal(t *testing.T) {
 		_ = fmt.Errorf("Can not decode data: %v\n", err)
 	}
 	fmt.Printf("%v\n, 类型 = %T\n", *person, person)
+}
+
+func Test_Map_marshal(t *testing.T) {
+	data := make(map[string]string, 0)
+	data["name"] = "dazuo"
+	data["age"] = "24"
+	bytes, _ := json.Marshal(data)
+	fmt.Println(string(bytes))
+
+	data2 := make(map[string]string, 0)
+	_ = json.Unmarshal(bytes, &data2)
+	fmt.Println(data2)
+}
+
+func Test_List_marshal(t *testing.T) {
+	tmpList := list.New()
+	tmpList.PushFront("dazuo")
+	tmpList.PushFront("age")
+
+	bytes, _ := json.Marshal(tmpList)
+	fmt.Println(string(bytes)) // list无法序列化
+}
+
+func Test_array(t *testing.T) {
+	tmpArr := []string{"dazuo", "age"}
+	bytes, _ := json.Marshal(tmpArr)
+	fmt.Println(string(bytes))
+
+	tmpArr2 := make([]string, 0, 0)
+	_ = json.Unmarshal(bytes, &tmpArr2)
+	fmt.Println(tmpArr2)
 }
