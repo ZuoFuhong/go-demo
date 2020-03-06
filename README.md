@@ -5,5 +5,4 @@
 
 ### TODO: 
 
-验证框架：https://github.com/go-playground/validator
 测试框架：https://github.com/smartystreets/goconvey
