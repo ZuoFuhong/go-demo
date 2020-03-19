@@ -8,6 +8,7 @@ require (
 	github.com/go-playground/validator/v10 v10.2.0 // indirect
 	github.com/go-redis/redis v6.14.2+incompatible
 	github.com/go-sql-driver/mysql v1.4.1
+	github.com/googollee/go-socket.io v1.4.3 // indirect
 	github.com/gorilla/mux v1.7.4 // indirect
 	github.com/gorilla/websocket v1.4.1
 	github.com/julienschmidt/httprouter v1.3.0
@@ -16,6 +17,7 @@ require (
 	github.com/onsi/ginkgo v1.12.0 // indirect
 	github.com/onsi/gomega v1.9.0 // indirect
 	github.com/pkg/errors v0.8.0
+	github.com/rs/cors v1.7.0 // indirect
 	github.com/spf13/viper v1.6.1
 	github.com/stretchr/testify v1.5.1
 	go.uber.org/atomic v1.5.1 // indirect
