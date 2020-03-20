@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style type="text/css">
+        body {
+            padding: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h2>Socket.IO 客户端</h2>
+    <h3>普通消息：</h3>
+    <div>
+        消息：<input id="message" autocomplete="off" />
+    </div>
+    <div>
+        <button id="conn">连接</button>
+        <button id="send">发送</button>
+        <button id="disconn">断开</button>
+    </div>
+
+    <h3 style="margin-top: 50px;">房间消息</h3>
+    <div>
+        房间名称：<input id="roomName" autocomplete="off" value="room1" />
+        发往房间的消息：<input id="roomMsg" autocomplete="off" value="hello world!"/>
+    </div>
+    <div>
+        <button id="joinRoom">加入房间</button>
+        <button id="leaveRoom">离开房间</button>
+        <button id="sendMsgToRoom">发送消息</button>
+    </div>
+    <script src="https://cdn.bootcss.com/socket.io/2.3.0/socket.io.js"></script>
+    <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+    <script>
+        const socket = io('http://127.0.0.1:8888', {
+            autoConnect: false
+        });
+
+        // 建立连接
+        $(document).on('click', '#conn', function () {
+            socket.open();
+        });
+
+        $(document).on('click', '#disconn', function () {
+            socket.close()
+        });
+
+        // 自定义事件（接收服务端消息）
+        socket.on('broadcast', function (msg) {
+            console.log('broadcast msg: ', msg)
+        });
+
+        socket.on('user-joined', function (msg) {
+            console.log("用户加入了房间, userId = ", msg)
+        });
+
+        socket.on('user-left', function (msg) {
+            console.log("用户离开了房间, userId = ", msg)
+        });
+
+        // 自定义消息事件（发送消息）
+        $(document).on('click', '#send', function () {
+            // 判断连接
+            if (!socket.connected) {
+                console.log('还未连接到服务器！')
+                return
+            }
+            socket.emit('msg', $('#message').val());
+        });
+
+        // 加入房间
+        $(document).on('click', '#joinRoom', function () {
+            const roomName = $('#roomName').val();
+            socket.emit('join-room', JSON.stringify({
+                userId: socket.id,
+                roomName: roomName
+            }));
+        });
+
+        // 离开房间
+        $(document).on('click', '#leaveRoom', function () {
+            const roomName = $('#roomName').val();
+            socket.emit('leave-room', JSON.stringify({
+                userId: socket.id,
+                roomName: roomName
+            }));
+        });
+
+        // 发送广播消息
+        $(document).on('click', '#sendMsgToRoom', function () {
+            const roomMsg = $('#roomMsg').val();
+            socket.emit('broadcast', roomMsg)
+        })
+    </script>
+</body>
+</html>
