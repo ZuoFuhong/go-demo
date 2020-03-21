@@ -92,8 +92,8 @@ func AddSignalService() {
 		s.Leave(room.RoomName)
 		broadcastTo(server, s.Rooms(), "user-left", room.UserId)
 	})
-	server.OnEvent("/", "broadcast", func(s socketio.Conn, msg string) {
-		fmt.Println("用户 " + s.ID() + " 发送了广播消息：" + msg)
+	server.OnEvent("/", "broadcast", func(s socketio.Conn, msg interface{}) {
+		fmt.Println("用户 "+s.ID()+" 发送了广播消息：", msg)
 		broadcastTo(server, s.Rooms(), "broadcast", msg)
 	})
 	server.OnEvent("/", "bye", func(s socketio.Conn) {
