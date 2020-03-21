@@ -8,6 +8,7 @@ require (
 	github.com/go-playground/validator/v10 v10.2.0
 	github.com/go-redis/redis v6.14.2+incompatible
 	github.com/go-sql-driver/mysql v1.4.1
+	github.com/golang/glog v0.0.0-20160126235308-23def4e6c14b
 	github.com/googollee/go-engine.io v1.4.3-0.20200220091802-9b2ab104b298
 	github.com/googollee/go-socket.io v1.4.3
 	github.com/gorilla/mux v1.7.4
