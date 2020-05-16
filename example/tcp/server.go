@@ -1,10 +1,9 @@
 package main
 
 import (
-	"fmt"
+	"go-demo/example/tcp/network"
 	"log"
 	"net"
-	"time"
 )
 
 func main() {
@@ -21,28 +20,11 @@ func main() {
 		if e != nil {
 			continue
 		}
-		//e = conn.SetKeepAlive(true)
+		e = conn.SetKeepAlive(true)
 		if e != nil {
 			continue
 		}
-		log.Println("新用户: ", conn.RemoteAddr())
-		go doConn(conn)
-	}
-}
-
-func doConn(conn *net.TCPConn) {
-	for {
-		err := conn.SetReadDeadline(time.Now().Add(time.Second * 5))
-		if err != nil {
-			return
-		}
-		bytes := make([]byte, 1024)
-
-		_, err = conn.Read(bytes)
-		if err != nil {
-			fmt.Println("读取超时")
-			return
-		}
-		fmt.Println(string(bytes))
+		ctx := network.NewConnContext(conn)
+		go ctx.DoConn()
 	}
 }
