@@ -95,7 +95,7 @@ func (c *Codec) Decode() (*Package, bool, error) {
 	return &message, true, nil
 }
 
-// 解码数据
+// 编码数据
 func (c *Codec) Encode(pack Package, duration time.Duration) error {
 	var buffer []byte
 	if len(pack.Content) <= c.f.WriteContentMaxLen {
