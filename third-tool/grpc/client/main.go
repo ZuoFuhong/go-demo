@@ -3,7 +3,7 @@ package main
 import (
 	"context"
 	"fmt"
-	"go-demo/third-tool/grpc/common"
+	"go-demo/third-tool/grpc/pb"
 	"google.golang.org/grpc"
 )
 
@@ -15,8 +15,8 @@ func main() {
 	}
 	defer conn.Close()
 
-	client := common.NewDataClient(conn)
-	rp, e := client.GetUser(context.Background(), &common.UserRq{Id: 100})
+	client := pb.NewDataClient(conn)
+	rp, e := client.GetUser(context.Background(), &pb.UserRq{Id: 100})
 	if e != nil {
 		panic(e)
 	}

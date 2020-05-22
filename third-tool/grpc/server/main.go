@@ -3,7 +3,7 @@ package main
 import (
 	"context"
 	"fmt"
-	"go-demo/third-tool/grpc/common"
+	"go-demo/third-tool/grpc/pb"
 	"google.golang.org/grpc"
 	"log"
 	"net"
@@ -18,10 +18,10 @@ import (
 
 type DataService struct{}
 
-func (s *DataService) GetUser(ctx context.Context, req *common.UserRq) (*common.UserRp, error) {
+func (s *DataService) GetUser(ctx context.Context, req *pb.UserRq) (*pb.UserRp, error) {
 	fmt.Println(req)
 
-	rp := &common.UserRp{
+	rp := &pb.UserRp{
 		Name: "welcome!",
 	}
 	return rp, nil
@@ -34,7 +34,7 @@ func main() {
 		panic(e)
 	}
 	s := grpc.NewServer()
-	common.RegisterDataServer(s, &DataService{})
+	pb.RegisterDataServer(s, &DataService{})
 	log.Print("RPC服务已开启")
 
 	e = s.Serve(lis)
