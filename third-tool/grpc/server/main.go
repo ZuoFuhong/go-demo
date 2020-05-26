@@ -27,13 +27,19 @@ func (s *DataService) GetUser(ctx context.Context, req *pb.UserRq) (*pb.UserRp, 
 	return rp, nil
 }
 
+// 服务器端的单向调用的拦截器
+func UnaryServerInterceptor(ctx context.Context, req interface{}, info *grpc.UnaryServerInfo, handler grpc.UnaryHandler) (resp interface{}, err error) {
+	fmt.Println("req: ", req, " info: ", info)
+	return handler(ctx, req)
+}
+
 func main() {
 	runtime.GOMAXPROCS(runtime.NumCPU())
 	lis, e := net.Listen("tcp", "127.0.0.1:1024")
 	if e != nil {
 		panic(e)
 	}
-	s := grpc.NewServer()
+	s := grpc.NewServer(grpc.UnaryInterceptor(UnaryServerInterceptor))
 	pb.RegisterDataServer(s, &DataService{})
 	log.Print("RPC服务已开启")
 
