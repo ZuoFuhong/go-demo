@@ -22,14 +22,15 @@ require (
 	github.com/justinas/alice v1.2.0
 	github.com/onsi/ginkgo v1.12.0 // indirect
 	github.com/onsi/gomega v1.9.0 // indirect
-	github.com/pkg/errors v0.8.0
+	github.com/pkg/errors v0.8.1
 	github.com/spf13/viper v1.6.1
 	github.com/stretchr/testify v1.5.1
 	go.etcd.io/etcd v3.3.22+incompatible
+	go.mongodb.org/mongo-driver v1.3.3
 	go.uber.org/atomic v1.5.1 // indirect
 	go.uber.org/multierr v1.4.0 // indirect
 	go.uber.org/zap v1.10.0
-	golang.org/x/crypto v0.0.0-20190510104115-cbcb75029529
+	golang.org/x/crypto v0.0.0-20190530122614-20be4c3c3ed5
 	google.golang.org/appengine v1.6.5 // indirect
 	google.golang.org/grpc v1.29.1
 	google.golang.org/protobuf v1.23.0
