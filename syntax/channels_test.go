@@ -38,7 +38,7 @@ func Test_Chan(t *testing.T) {
 	close(ch)
 }
 
-// 通道可以分为两个方向，一个是读，另一个是写，假如 一个函数的输入参数和输出参数都 是相 同的 chan 类型， 则该函数可以调用自己，
+// 通道可以分为两个方向，一个是读，另一个是写，假如一个函数的输入参数和输出参数都是相同的 chan 类型，则该函数可以调用自己，
 // 最终形成一个调用链。当然多个具有相同参数类 型的函数也能组成一个调用链，这很像 UNIX 系统的管道，是一个有类型的管道。
 func Test_chan(t *testing.T) {
 	in := make(chan int)
@@ -46,13 +46,14 @@ func Test_chan(t *testing.T) {
 		for i := 0; i < 10; i++ {
 			in <- i
 		}
+		// 关闭通道表示将不再在该通道上发送任何值。
 		close(in)
 	}()
 
 	// 连读调用3次chain，相当于把in中的每个元素都加3
 	out := chain(chain(chain(in)))
 	for v := range out {
-		println(v)
+		fmt.Printf("v = %d\n", v)
 	}
 }
 
