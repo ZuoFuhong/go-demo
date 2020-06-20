@@ -9,7 +9,18 @@ import (
 )
 
 // goroutine-并发
-func TestCreateGoroutineByFunc(t *testing.T) {
+func Test_goroutine(t *testing.T) {
+	// goroutine有个特性，也就是说，如果一个goroutine没有被阻塞，那么别的goroutine就不会得到执行。
+	// 这并不是真正的并发，如果你要真正的并发，需要加上下面的这行代码。
+
+	// 设置可以同时执行的cpu的最大数量，并返回之前的设置。如果n < 1，则不改变当前设置。
+	maxprocs := runtime.GOMAXPROCS(4)
+	fmt.Println(maxprocs)
+
+	// 查询本地机器上逻辑cpu的数量
+	numCPU := runtime.NumCPU()
+	fmt.Println(numCPU)
+
 	// 并发执行程序
 	go running()
 
