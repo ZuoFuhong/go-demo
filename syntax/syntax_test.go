@@ -114,6 +114,31 @@ func TestDataTypeSyntax(t *testing.T) {
 	fmt.Println(runes)
 }
 
+type point struct {
+	x int
+	y int
+}
+
+func Test_printf(t *testing.T) {
+	var a int = 112
+	var b float32 = 10.232
+	var c byte = 48
+	var s string = "100"
+	var stru point = point{x: 1, y: 2}
+	var sp = &stru
+
+	fmt.Printf("|%d| \t |%5d| \t |%-5d| \t |%+d|\n", a, a, a, a)                             // 打印整型
+	fmt.Printf("八进制 = %#o, 16进制 = %#x, 二进制 = %b\n", a, a, a)                                 // 进制转换显示
+	fmt.Printf("%f \t %.2f \n", b, b)                                                        // 打印浮点型
+	fmt.Printf("%g\n", b)                                                                    // 用最少的数字来表示
+	fmt.Printf("%q\n", c)                                                                    // 打印单引号
+	fmt.Printf("%t\n", true)                                                                 // 打印true或false
+	fmt.Printf("|%s| \t |%5s| \t 字符串的16进制表示 = 0x%x\n", s, s, s)                              // 打印字符串字符串
+	fmt.Printf("%v \t %+v \t %#v \n", stru, stru, stru)                                      // 以默认的方式打印变量的值
+	fmt.Printf("%p \t %#p \n", sp, sp)                                                       // 打印指针地址
+	fmt.Printf("a = %T, b = %T, c = %T, s = %T, stru = %T, sp = %T\n", a, b, c, s, stru, sp) // 打印变量类型
+}
+
 /*
 	数据类型转换
 */
@@ -270,55 +295,6 @@ func TestTypeAliasSyntax(t *testing.T) {
 
 	// 结果显示a的类型是 main.NewInt，表示 main 包下定义的 NewInt 类型。a2 类型是 int。IntAlias 类型只会在代码中存在，
 	// 编译完成时，不会有 IntAlias 类型。
-}
-
-/*
-	数组是一个由固定长度的特定类型元素组成的序列，一个数组可以由零个或多个元素组成。因为数组的长度是固定的。
-    1.Go中的数组是值类型，换句话说，如果你将一个数组赋值给另外一个数组，那么，实际上就是将整个数组拷贝一份
-    2.如果Go中的数组作为函数的参数，那么实际传递的参数是一份数组的拷贝，而不是数组的指针。因此，在Go中如果
-      将数组作为函数的参数传递的话，那效率就肯定没有传递指针高了。
-*/
-func TestArraySyntax(t *testing.T) {
-	// var 数组变量名 [元素数量]T
-	var arr [4]int
-
-	// 数组长度
-	fmt.Println("arr length: ", len(arr))
-	// 默认值
-	fmt.Println("arr value：", arr)
-
-	// 数组赋值，数组越界，运行时会报出宕机
-	arr[0] = 1
-	fmt.Println("arr value: ", arr)
-
-	// 需要确保大括号后面的元素数量与数组的大小一致
-	var nameList = [3]string{"dazuo", "wang", "li"}
-	fmt.Println(nameList)
-
-	// 让编译器在编译时，根据元素个数确定数组大小
-	var ageList = [...]int{1, 3, 4}
-	fmt.Println(ageList)
-	fmt.Println("ageList length: ", len(ageList))
-
-	// 比较两个数组是否相等
-	// 如果两个数组类型相同（包括数组的长度，数组中元素的类型）的情况下，我们可以直接通过较运算符（== 和!=）来判断两个数组是否相等，
-	// 只有当两个数组的所有元素都是相等的时候数组才是相等的，不能比较两个类型不同的数组，否则程序将无法完成编译。
-	aList := [...]int{1, 2, 3}
-	bList := [3]int{1, 2, 3}
-	fmt.Println("判断数据是否相等：", aList == bList)
-
-	// 遍历数组
-	for k, v := range aList {
-		fmt.Println(k, v)
-	}
-	// 多维数组
-	var multiArr = [2][2]string{{"dazuo", "age"}, {"jin", "age"}}
-	fmt.Println(multiArr)
-
-	// 验证数组是值传递
-	cList := aList
-	cList[0] = 3
-	fmt.Println("aList: ", aList)
 }
 
 /*
