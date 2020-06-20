@@ -13,9 +13,9 @@ import (
 
 var mux = new(sync.Mutex)
 
-// 互斥锁
-// 1）如果对一个已经上锁的对象再次上锁，那么就会导致该锁定操作被阻塞，直到该互斥锁回到被解锁状态
-// 2）可以使用defer解锁
+// sync.Mutex(排他锁、互斥锁)
+// sync.Mutex一旦被锁住，其它的Lock()操作就无法再获取它的锁，只有通过Unlock()释放锁之后才能通过Lock()继续获取锁。已有的锁会
+// 导致其它申请Lock()操作的goroutine被阻塞，且只有在Unlock()的时候才会解除阻塞。
 func Test_Mutex(t *testing.T) {
 
 	go printTaskName("child task")
@@ -33,9 +33,12 @@ func printTaskName(name string) {
 
 var rwmux = new(sync.RWMutex)
 
-// RWMutex读写锁
-// 基于Mutex 实现，Lock()加写锁，Unlock()解写锁，RLock()加读锁，RUnlock()解读锁
-// 多个goroutine可以同时读，读锁只会阻止写；只能一个同时写，写锁会同时阻止读写
+// RWMutex读写互斥锁
+// 1.RWMutex是基于Mutex的，在Mutex的基础之上增加了读、写的信号量，并使用了类似引用计数的读锁数量
+// 2.读锁与读锁兼容，读锁与写锁互斥，写锁与写锁互斥，只有在锁释放后才可以继续申请互斥的锁：
+//   - 可以同时申请多个读锁
+//   - 有读锁时申请写锁将阻塞，有写锁时申请读锁将阻塞
+//   - 只要有写锁，后续申请读锁和写锁都将阻塞
 func Test_RWMutexRead(t *testing.T) {
 
 	go readByte("child task")
