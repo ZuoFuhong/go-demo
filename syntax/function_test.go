@@ -1,9 +1,7 @@
 package syntax
 
 import (
-	"errors"
 	"fmt"
-	"runtime"
 	"strings"
 	"testing"
 )
@@ -24,7 +22,7 @@ func fire(msg string) (string, int) {
 	return msg, 1
 }
 
-func TestFuncSyntax(t *testing.T) {
+func Test_Func(t *testing.T) {
 	// 2.函数变量：在 Go 语言中，函数也是一种类型，可以和其他类型一样被保存在变量中。
 	f := fire
 	fmt.Printf("f type: %T\n", f)
@@ -58,7 +56,7 @@ func TestFuncSyntax(t *testing.T) {
 /*
 	4.接口型函数：指的是用函数实现接口，这种函数为接口型函数，这种方式适用于只有一个函数的接口。
 */
-func TestFuncAndInterface(t *testing.T) {
+func Test_FuncAndInterface(t *testing.T) {
 	// 声明接口变量
 	var invoker Invoker
 	// 将匿名函数转为FuncCaller类型，再赋值给接口
@@ -122,7 +120,7 @@ func addr() func(int) int {
       1.链式处理（对数据的操作进行多步骤的处理被称为链式处理）
       2.使用匿名函数作为回调函数
 */
-func TestFuncCase(t *testing.T) {
+func Test_FuncCase(t *testing.T) {
 	// 1.示例：链式处理 待处理的字符串列表
 	myList := []string{
 		"go scanner",
@@ -166,56 +164,4 @@ func stringProcess(myList []string, chain []func(string) string) {
 		// 将结果放回切片
 		myList[k] = result
 	}
-}
-
-// 7.处理运行时错误
-func TestErrorSyntax(t *testing.T) {
-	// 使用 errors 包进行错误的定义
-	var err = errors.New("this is an error")
-	// 输出错误信息
-	fmt.Println(err.Error())
-}
-
-// 8.自定义一个错误（实现错误接口，返回错误描述）
-type TokenError struct {
-	ErrMsg string
-}
-
-func (e TokenError) Error() string {
-	return e.ErrMsg
-}
-
-func Test_TokenError(t *testing.T) {
-	var err error = TokenError{"Token is invalid."}
-	switch err.(type) {
-	case TokenError:
-		fmt.Println("1")
-	case runtime.Error:
-		fmt.Println("2")
-	default:
-		fmt.Println("3")
-	}
-}
-
-// 9.服务宕机恢复
-func TestPanicSyntax(t *testing.T) {
-
-	defer func() {
-		// Recover 是一个Go语言的内建函数，可以让进入宕机流程中的 goroutine 恢复过来，recover 仅在延迟函数 defer 中有效，
-		// 在正常的执行过程中，调用 recover 会返回 nil 并且没有其他任何效果，如果当前的 goroutine 陷入恐慌，调用 recover
-		// 可以捕获到 panic 的输入值，并且恢复正常的执行。
-		err := recover()
-
-		// 使用type关键字 做类型开关
-		switch err.(type) {
-		case runtime.Error:
-			fmt.Println("runtime error", err)
-		default:
-			// 非运行时错误
-			fmt.Println("error: ", err)
-		}
-	}()
-
-	// 手动触发宕机
-	panic("occur panic")
 }
