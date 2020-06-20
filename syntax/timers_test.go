@@ -40,3 +40,18 @@ func Test_Ticker(t *testing.T) {
 
 	time.Sleep(time.Second * 30)
 }
+
+// 使用Ticker实现流控
+func Test_ratelimiting(t *testing.T) {
+	request := make(chan int, 5)
+	for i := 1; i <= 5; i++ {
+		request <- i
+	}
+	close(request)
+
+	limiter := time.Tick(1000 * time.Millisecond)
+	for req := range request {
+		<-limiter
+		fmt.Println("request", req, time.Now())
+	}
+}
