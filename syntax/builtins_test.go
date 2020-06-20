@@ -12,12 +12,9 @@ import (
 	"fmt"
 	"math/rand"
 	"net/url"
-	"os"
-	"os/exec"
 	"regexp"
 	"sort"
 	"strings"
-	"syscall"
 	"testing"
 	"time"
 )
@@ -131,43 +128,6 @@ func Test_base64(t *testing.T) {
 	fmt.Println(uEnc)
 	uDec, _ = base64.URLEncoding.DecodeString(uEnc)
 	fmt.Println(string(uDec))
-}
-
-func Test_ENV(t *testing.T) {
-	_ = os.Setenv("FOO", "1")
-	fmt.Println("FOO: ", os.Getenv("FOO"))
-
-	for _, e := range os.Environ() {
-		pair := strings.SplitN(e, "=", 2)
-		fmt.Println(pair[0])
-	}
-}
-
-// 通过Go程序生成一个pygmentize进程（生成外部进程）
-func Test_spawning_processes(t *testing.T) {
-	dateCmd := exec.Command("date")
-	output, err := dateCmd.Output()
-	if err != nil {
-		panic(err)
-	}
-	fmt.Println(string(output))
-}
-
-// exec会执行参数指定的命令，但是并不创建新的进程，只在当前进程空间内执行，
-// 即替换当前进程的执行内容，他们重用同一个进程号PID。
-func Test_exec(t *testing.T) {
-	binary, lookErr := exec.LookPath("ls")
-	if lookErr != nil {
-		panic(lookErr)
-	}
-
-	args := []string{"ls", "-a", "-l", "-h"}
-	env := os.Environ()
-
-	execErr := syscall.Exec(binary, args, env)
-	if execErr != nil {
-		panic(execErr)
-	}
 }
 
 // 指定字段的tag，实现json字符串的首字母小写
