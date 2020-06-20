@@ -1,16 +1,17 @@
-package main
+package syntax
 
 import (
 	"fmt"
 	"os"
 	"os/signal"
 	"syscall"
+	"testing"
 )
 
 // Golang的 signal
 // golang中对信号的处理主要使用os/signal包中的两个方法：一个是notify方法用来监听收到的信号；一个是 stop方法用来取消监听。
 
-func main() {
+func Test_signal(t *testing.T) {
 	c := make(chan os.Signal, 1)
 
 	// 监听信号
