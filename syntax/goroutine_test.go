@@ -3,9 +3,7 @@ package syntax
 import (
 	"fmt"
 	"math/rand"
-	"net/http"
 	"runtime"
-	"sync"
 	"testing"
 	"time"
 )
@@ -37,32 +35,6 @@ func TestCreateGoroutineByAnonymousFunc(t *testing.T) {
 
 	fmt.Println("end ...")
 	time.Sleep(3 * time.Second)
-}
-
-// WaitGroup-同步
-var wg sync.WaitGroup
-var urls = []string{
-	"https://www.baidu.com",
-	"https://www.baidu.com",
-	"https://www.baidu.com",
-}
-
-func Test_waitGroup(t *testing.T) {
-	for _, url := range urls {
-		// 每一个 URL 启动一个 gorouti口e，同时给 wg 加 l
-		wg.Add(1)
-		go func(url string) {
-			// 当前goroutine结束后给wg计数减1, wg.Done()等价于wg.Add(-1)
-			defer wg.Done()
-
-			resp, err := http.Get(url)
-			if err == nil {
-				println(resp.Status)
-			}
-		}(url)
-	}
-	// 等待所有请求结束
-	wg.Wait()
 }
 
 // 随机数生成器
