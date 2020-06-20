@@ -1,11 +1,9 @@
 package syntax
 
 import (
-	"container/list"
 	"fmt"
 	"math"
 	"strconv"
-	"sync"
 	"testing"
 	"time"
 )
@@ -191,50 +189,6 @@ func TestTypeConv(t *testing.T) {
 	fmt.Printf("g = %v, ok = %v\n", g, ok)
 }
 
-/*
-	指针语法
-      1.指针地址
-      2.指针类型
-*/
-func TestPointerSyntax(t *testing.T) {
-	var hint string = "hello"
-
-	// 对字符串取地址, ptr类型为*string
-	var ptr *string = &hint
-
-	// 打印ptr的类型
-	fmt.Printf("ptr type: %T\n", ptr)
-
-	// 打印ptr的指针地址，指针值带有0x的十六进制前缀。
-	fmt.Println("ptr value：", ptr)
-
-	// 对指针进行取值
-	value := *ptr
-
-	// 取值后的类型
-	fmt.Printf("value type: %T\n", value)
-
-	// 指针取值后就是指向变量的值
-	fmt.Printf("value：%s\n", value)
-
-	// 使用指针修改值
-	*ptr = "world"
-	fmt.Println("修改后的hint：", hint)
-
-	// 使用new()创建指针
-	str := new(string)
-	fmt.Println("指向默认值（空字符串）：", *str)
-
-	*str = "hello"
-	fmt.Println("更新后的值：", *str)
-
-	var a = "hello"
-	var b = a
-	// 输出结果：内存地址不一样
-	fmt.Println("a 地址：", &a)
-	fmt.Println("b 地址：", &b)
-}
-
 // 常量和const关键字
 func TestConstSyntax(t *testing.T) {
 	const size = 4
@@ -268,7 +222,7 @@ func Test_iota(t *testing.T) {
 /*
 	使用type关键字 定义 类型别名
 */
-func TestTypeAliasSyntax(t *testing.T) {
+func Test_TypeAlias(t *testing.T) {
 	// 将NewInt定义为int类型
 	type NewInt int
 
@@ -289,179 +243,6 @@ func TestTypeAliasSyntax(t *testing.T) {
 
 	// 结果显示a的类型是 main.NewInt，表示 main 包下定义的 NewInt 类型。a2 类型是 int。IntAlias 类型只会在代码中存在，
 	// 编译完成时，不会有 IntAlias 类型。
-}
-
-/*
-   切片（slice）是对数组的一个连续片段的引用，所以切片是一个引用类型（因此更类似于 C/C++ 中的数组类型，
-   或者 Python 中的 list 类型），这个片段可以是整个数组，也可以是由起始和终止索引标识的一些项的子集，
-   需要注意的是，终止索引标识的项不包括在切片内。
-*/
-func TestSliceSyntax(t *testing.T) {
-	// 定义一个数组
-	var nameList = [...]string{"dazuo", "wang", "li"}
-	// 1.从数组或切片生成新的切片（取出元素不包含结束位置对应的值）
-	var subList = nameList[1:2]
-	fmt.Println(subList)
-	fmt.Println("中间至尾部：", nameList[1:])
-	fmt.Println("开头至中间：", nameList[:2])
-	fmt.Println("全部：", nameList[:])
-
-	fmt.Println("********************************")
-
-	// 2.声明新的切片
-	// 除了可以从原有的数组或者切片中生成切片外，也可以声明一个新的切片，每一种类型都可以拥有其切片类型，
-	// 表示多个相同类型元素的连续集合，因此切片类型也可以被声明。
-	var strList []string
-	fmt.Println("strList: ", strList)
-	// 切片是动态结构，只能与 nil 判定相等，不能互相判定相等。
-	fmt.Println(strList == nil)
-
-	fmt.Println("********************************")
-
-	// 3.使用 make() 函数构造切片
-	// 语法：make( []Type, size, cap )
-	// 其中 Type 是指切片的元素类型，size 指的是为这个类型分配多少个元素，cap 为预分配的元素数量，这个值设定后不影响 size，
-	// 只是能提前分配空间，降低多次分配空间造成的性能问题。
-	a := make([]int, 2, 10)
-	fmt.Println("a len: ", len(a))
-	fmt.Println("a value: ", a)
-
-	fmt.Println("********************************")
-
-	// 4.内建函数 append() 可以为切片动态添加元素
-	// 每个切片会指向一片内存空间，这片空间能容纳一定数量的元素。当空间不能容纳足够多的元素时，切片就会进行“扩容”，返回新的切片
-	c := append(a, 1)
-	fmt.Println("c value: ", c)
-
-	fmt.Println("********************************")
-
-	// 5.切片复制
-	// 内置函数 copy() 可以将一个数组切片复制到另一个数组切片中，如果加入的两个数组切片不一样大，就会按照其中较小的那个数组切片
-	// 的元素个数进行复制。
-	//
-	// 语法：copy( destSlice, srcSlice []T) int
-	// 其中 srcSlice 为数据来源切片，destSlice 为复制的目标（也就是将 srcSlice 复制到 destSlice），目标切片必须分配过空间
-	// 且足够承载复制的元素个数，并且来源和目标的类型必须一致，copy() 函数的返回值表示实际发生复制的元素个数。
-	var d = make([]int, 1, 10)
-	i := copy(d, c[:])
-	fmt.Println("copy count：", i)
-	fmt.Println("d value: ", d)
-
-	// 6.range关键字：循环迭代切片
-	// 当迭代切片时，关键字 range 会返回两个值，第一个值是当前迭代到的索引位置，第二个值是该位置对应元素值的一份副本，
-	// 而不是直接返回对该元素的引用。
-	slice := []int{10, 20, 30, 40}
-	for index, value := range slice {
-		fmt.Printf("Index: %d Value: %d\n", index, value)
-	}
-
-	// 7.多维切片
-	// 语法：var sliceName [][]...[]sliceType
-	// 其中，sliceName 为切片的名字，sliceType为切片的类型，每个[ ]代表着一个维度，切片有几个维度就需要几个[ ]。
-	multipSlice := [][]int{{10}, {100, 200}}
-	fmt.Println(multipSlice)
-
-	// 8.切片长度len()和切片容量cap()
-	tmpArr := make([]int, 2, 6)
-	tmpArr = append(tmpArr, 1)
-	tmpArr = append(tmpArr, 2)
-	tmpArr = append(tmpArr, 3)
-	fmt.Println(tmpArr)
-
-	fmt.Println(len(tmpArr))
-	fmt.Println(cap(tmpArr))
-}
-
-/*
-	map映射
-*/
-func TestMapSyntax(t *testing.T) {
-	// 使用make创建map
-	s := make(map[string]string)
-	s["name"] = "dazuo"
-	fmt.Println(s)
-	fmt.Println(s["name"])
-
-	// 声明map时填充元素
-	m := map[string]string{
-		"W": "forward",
-		"A": "left",
-		"D": "right",
-		"S": "backward",
-	}
-	fmt.Println(m)
-
-	// 遍历map
-	for k, v := range m {
-		fmt.Println(k, v)
-	}
-
-	// 删除map中的键值对
-	// 清空map的唯一办法就是重新 make 一个新的 map，不用担心垃圾回收的效率，Go语言中的并行垃圾回收效率比写一个清空函数要高效的多。
-	delete(m, "W")
-	fmt.Println(m)
-
-	// 并发环境中的map
-	var scene sync.Map
-
-	// 将键值对保存到sync.Map
-	scene.Store("greece", 97)
-	scene.Store("london", 100)
-	scene.Store("egypt", 200)
-
-	// 从sync.Map中根据键取值
-	fmt.Println(scene.Load("london"))
-
-	// 根据键删除对应的键值对
-	scene.Delete("london")
-
-	// 遍历所有sync.Map中的键值对
-	scene.Range(func(k, v interface{}) bool {
-		fmt.Println("iterate:", k, v)
-		return true
-	})
-}
-
-/*
-  	list的初始化有两种方法
-	  1.通过 container/list 包的 New() 函数初始化 list
-        变量名 := list.New()
-	  2.通过 var 关键字声明初始化 list
-        var 变量名 list.List{}
-*/
-func TestListSyntax(t *testing.T) {
-	// 1.通过 container/list 包的 New() 函数初始化 list
-	myList := list.New()
-	// 将 fist 字符串插入到列表的尾部，此时列表是空的，插入后只有一个元素。
-	myList.PushBack("first")
-
-	// 将数值 68 放入列表。此时，列表中已经存在 fist 元素，67 这个元素将被放在 fist 的前面。
-	myList.PushFront(68)
-
-	// 保存元素句柄
-	element := myList.PushFront(67)
-
-	fmt.Println("element: ", element)
-	fmt.Println(myList)
-
-	// 获取链表首部元素 67，然后找到链表下一个元素 68
-	fmt.Println(myList.Front().Next().Value)
-
-	// 通过句柄移除元素
-	myList.Remove(element)
-
-	fmt.Println("********************************")
-
-	// 遍历列表
-	for i := myList.Front(); i != nil; i = i.Next() {
-		fmt.Println(i.Value)
-	}
-
-	// 2.通过 var 关键字声明初始化 list
-	ageList := list.List{}
-	ageList.PushBack(true)
-	ageList.PushBack("dazuo")
-	fmt.Print(ageList.Front().Next().Value)
 }
 
 /*
