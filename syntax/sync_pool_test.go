@@ -1,7 +1,8 @@
-package main
+package syntax
 
 import (
 	"sync"
+	"testing"
 )
 
 /*
@@ -17,7 +18,7 @@ var bytePool = sync.Pool{
 	},
 }
 
-func main() {
+func Test_syncPool(t *testing.T) {
 	obj := bytePool.Get().([]byte)
 
 	bytePool.Put(obj)
