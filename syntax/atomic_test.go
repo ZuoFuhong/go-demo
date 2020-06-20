@@ -1,4 +1,4 @@
-package atomic
+package syntax
 
 import (
 	"log"

@@ -7,13 +7,11 @@ package syntax
 import (
 	"net/http"
 	"sync"
-	"sync/atomic"
 	"testing"
 )
 
 // WaitGroup-同步
 var wg sync.WaitGroup
-var ops uint64
 
 var urls = []string{
 	"https://www.baidu.com",
@@ -33,8 +31,6 @@ func Test_waitGroup(t *testing.T) {
 			if err == nil {
 				println(resp.Status)
 			}
-			// 原子递增计数器
-			atomic.AddUint64(&ops, 1)
 		}(url)
 	}
 	// 等待所有请求结束
