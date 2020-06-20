@@ -235,11 +235,7 @@ func TestPointerSyntax(t *testing.T) {
 	fmt.Println("b 地址：", &b)
 }
 
-/*
-	常量和const关键字
-      1.定义常量
-      2.使用const常量配合iota模拟枚举
-*/
+// 常量和const关键字
 func TestConstSyntax(t *testing.T) {
 	const size = 4
 	const (
@@ -248,20 +244,18 @@ func TestConstSyntax(t *testing.T) {
 	)
 	fmt.Println("size:", size)
 	fmt.Println("pi: ", pi, " e: ", e)
+}
 
-	fmt.Println("*******************************")
-
+func Test_iota(t *testing.T) {
 	// Go语言中现阶段没有枚举，可以使用 const 常量配合 iota 模拟枚举
 
-	// 将 int 定义为 Weapon 类型
-	type Weapon int
 	// 标识后，const 下方的常量可以是默认类型的，默认时，默认使用前面指定的类型作为常量类型。该行使用 iota 进行常量值自动生成。
 	// iota 起始值为 0，一般情况下也是建议枚举从 0 开始，让每个枚举类型都有一个空值，方便业务和逻辑的灵活使用。
 
 	// 一个 const 声明内的每一行常量声明，将会自动套用前面的 iota 格式，并自动增加。这种模式有点类似于电子表格中的单元格自动填充。
 	// 只需要建立好单元格之间的变化关系，拖动右下方的小点就可以自动生成单元格的值。
 	const (
-		Arrow Weapon = iota // 开始生成枚举值, 默认为0
+		Arrow int = iota // 开始生成枚举值, 默认为0
 		Shuriken
 		SniperRifle
 		Rifle
