@@ -2,8 +2,6 @@ package syntax
 
 import (
 	"fmt"
-	"github.com/pkg/errors"
-	"strconv"
 	"testing"
 )
 
@@ -102,41 +100,4 @@ func Test_emptyInterface(t *testing.T) {
 	// 使用类型断言
 	var b int = i.(int)
 	fmt.Printf("b type: %T  b value: %v", b, b)
-}
-
-// error 接口，返回错误信息
-func Test_error(t *testing.T) {
-	s, e := getName()
-	if e != nil {
-		panic(e)
-	}
-	fmt.Println(s)
-}
-
-func getName() (string, error) {
-	return "dazuo", errors.New("this is error")
-}
-
-// 自定义错误类型
-func Test_custom_error(t *testing.T) {
-	i, e := getAge()
-	if e != nil {
-		baseError, _ := e.(BaseError)
-		fmt.Println("自定义异常：", baseError.Error())
-
-		panic(e)
-	}
-	fmt.Println(i)
-}
-
-type BaseError struct {
-	Code int
-}
-
-func (e BaseError) Error() string {
-	return "code = " + strconv.Itoa(e.Code)
-}
-
-func getAge() (int, error) {
-	return 22, BaseError{1}
 }
