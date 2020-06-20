@@ -10,6 +10,7 @@
 
 ### 学习资源
 
+- [Effective Go](https://golang.org/doc/effective_go.html)
 - [Go精华文章列表](https://github.com/golang/go/wiki/Articles)
 - [Go相关博客列表](https://github.com/golang/go/wiki/Blogs)
 - [Awesome Go](https://github.com/avelino/awesome-go)
