@@ -52,7 +52,7 @@ func Test_close_chan(t *testing.T) {
 	go func() {
 		cnt := rand.Intn(10)
 		for i := 0; i < cnt; i++ {
-			channel <- fmt.Sprintf("message-%2d", i)
+			channel <- fmt.Sprintf("message -%2d", i)
 		}
 		close(channel) // 关闭Channel
 	}()
