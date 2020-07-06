@@ -4,9 +4,10 @@
 
 ### 项目结构
 
-- syntax：基本语法
-- example：联系案例
-- third-tool：第三方包的使用
+- syntax：    语法
+- example：   案例
+- algorithm： 算法
+- third-tool：第三方包
 
 ### 学习资源
 

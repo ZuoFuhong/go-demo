@@ -3,21 +3,9 @@ package main
 import (
 	"fmt"
 	"math/rand"
+	"testing"
 	"time"
 )
-
-func main() {
-	count, amount := int64(10), int64(100)
-	remain := amount
-	sum := int64(0)
-	for i := int64(0); i < count; i++ {
-		x := DoubleAverage(count-i, remain)
-		remain -= x
-		fmt.Println(x)
-		sum += x
-	}
-	fmt.Print("sum: ", sum)
-}
 
 /*
 	抢红包-二倍均值算法
@@ -38,4 +26,17 @@ func DoubleAverage(count, amount int64) int64 {
 	rand.Seed(time.Now().UnixNano())
 	x := rand.Int63n(avg2) + int64(1)
 	return x
+}
+
+func Test_red_packet(t *testing.T) {
+	count, amount := int64(10), int64(100)
+	remain := amount
+	sum := int64(0)
+	for i := int64(0); i < count; i++ {
+		x := DoubleAverage(count-i, remain)
+		remain -= x
+		fmt.Println(x)
+		sum += x
+	}
+	fmt.Print("sum: ", sum)
 }

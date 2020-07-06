@@ -1,4 +1,4 @@
-package shuffle
+package main
 
 import (
 	"fmt"
