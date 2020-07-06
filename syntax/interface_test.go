@@ -5,12 +5,11 @@ import (
 	"testing"
 )
 
-// 声明接口
+// 声明接口（推荐：按照惯例，单一方法接口由方法名加上-er后缀或类似的修改来命名）
 type Flyer interface {
 	Fly()
 }
 
-// 声明接口
 type Worker interface {
 	Work()
 }
