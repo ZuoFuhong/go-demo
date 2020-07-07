@@ -18,7 +18,7 @@ import (
 // 时间复杂度：O(n^2)，最优时间复杂度：O(n)，平均时间复杂度：O(n^2)
 func Test_Bubble(t *testing.T) {
 	tmpArr := [10]int{2, 3, 1, 4, 6, 7, 9, 8, 5, 0}
-	bubbleSort2(&tmpArr)
+	bubbleSort1(&tmpArr)
 	fmt.Println(tmpArr)
 }
 
@@ -26,9 +26,7 @@ func bubbleSort1(tmpArr *[10]int) {
 	for i := 0; i < len(tmpArr)-1; i++ {
 		for j := 0; j < len(tmpArr)-i-1; j++ {
 			if tmpArr[j] > tmpArr[j+1] {
-				tmp := tmpArr[j+1]
-				tmpArr[j+1] = tmpArr[j]
-				tmpArr[j] = tmp
+				tmpArr[j], tmpArr[j+1] = tmpArr[j+1], tmpArr[j]
 			}
 		}
 	}
@@ -38,9 +36,7 @@ func bubbleSort2(tmpArr *[10]int) {
 	for i := 0; i < len(tmpArr); i++ {
 		for j := i + 0; j < len(tmpArr); j++ {
 			if tmpArr[i] > tmpArr[j] {
-				tmp := tmpArr[i]
-				tmpArr[i] = tmpArr[j]
-				tmpArr[j] = tmp
+				tmpArr[i], tmpArr[j] = tmpArr[j], tmpArr[i]
 			}
 		}
 	}
