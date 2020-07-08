@@ -6,8 +6,10 @@ package syntax
 
 import (
 	"container/list"
+	"crypto/md5"
 	"crypto/sha1"
 	"encoding/base64"
+	"encoding/hex"
 	"encoding/json"
 	"fmt"
 	"math/rand"
@@ -105,6 +107,12 @@ func Test_url_parse(t *testing.T) {
 
 	m, _ := url.ParseQuery(u.RawQuery)
 	fmt.Println(m)
+}
+
+func Test_md5(t *testing.T) {
+	m := md5.New()
+	m.Write([]byte("123"))
+	fmt.Printf(hex.EncodeToString(m.Sum(nil)))
 }
 
 func Test_sha1(t *testing.T) {
