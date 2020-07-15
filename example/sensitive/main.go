@@ -6,15 +6,6 @@ package main
 
 import "fmt"
 
-// 敏感词查找、验证、过滤和替换 https://github.com/importcjj/sensitive
-func main() {
-	tree := NewTree()
-	tree.Add("world")
-	tree.Add("orl")
-	str := tree.replace("helloworl", '*')
-	fmt.Println(str)
-}
-
 type Tree struct {
 	root *Node
 }
@@ -57,28 +48,52 @@ func (t *Tree) Add(word string) {
 	}
 }
 
+// 删除敏感词
+func (t *Tree) Del(word string) {
+	current := t.root
+	runes := []rune(word)
+	for i := 0; i < len(runes); i++ {
+		if next, found := current.Child[runes[i]]; found {
+			current = next
+		} else {
+			return
+		}
+		if i == len(runes)-1 {
+			current.isPathEnd = false
+		}
+	}
+}
+
 // 替换文本中的敏感词，返回脱敏后的字符串
-func (t *Tree) replace(text string, character rune) string {
+func (t *Tree) Replace(text string, character rune) string {
 	var (
 		parent = t.root
 		runes  = []rune(text)
 		length = len(runes)
-		left   = 0
+		offset = 0
 	)
 	for position := 0; position < length; position++ {
 		current, found := parent.Child[runes[position]]
 		if !found || (!current.isPathEnd && position == length-1) {
 			parent = t.root
-			position = left
-			left++
+			position = offset
+			offset++
 			continue
 		}
-		if current.isPathEnd && left <= position {
-			for i := left; i <= position; i++ {
+		if current.isPathEnd && offset <= position {
+			for i := offset; i <= position; i++ {
 				runes[i] = character
 			}
 		}
 		parent = current
 	}
 	return string(runes)
+}
+
+// 敏感词查找、验证、过滤和替换 https://github.com/importcjj/sensitive
+func main() {
+	tree := NewTree()
+	tree.Add("world")
+	str := tree.Replace("hello world", '*')
+	fmt.Println(str)
 }
