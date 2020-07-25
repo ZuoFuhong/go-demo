@@ -31,13 +31,12 @@ require (
 	go.uber.org/multierr v1.4.0 // indirect
 	go.uber.org/zap v1.10.0
 	golang.org/x/crypto v0.0.0-20190530122614-20be4c3c3ed5
-	google.golang.org/appengine v1.6.5 // indirect
-	google.golang.org/genproto v0.0.0-20190819201941-24fa4b261c55
 	google.golang.org/grpc v1.29.1
 	google.golang.org/protobuf v1.23.0
 	gopkg.in/alexcesaro/quotedprintable.v3 v3.0.0-20150716171945-2caba252f4dc // indirect
 	gopkg.in/gomail.v2 v2.0.0-20160411212932-81ebce5c23df
 	gopkg.in/olivere/elastic.v5 v5.0.86
+	sigs.k8s.io/yaml v1.2.0 // indirect
 )
 
 // 解决etcd依赖包冲突
