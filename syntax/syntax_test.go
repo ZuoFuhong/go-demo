@@ -378,3 +378,7 @@ OuterFlag:
 		}
 	}
 }
+
+// Deprecated: Use strings.HasPrefix instead.
+func deprecatedMethod() {
+}
