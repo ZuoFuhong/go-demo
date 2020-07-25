@@ -1,0 +1,38 @@
+GET http://47.98.199.80:9200
+
+### 查看所有索引
+GET http://47.98.199.80:9200/_cat/indices?v
+### 新建Index
+PUT http://47.98.199.80:9200/book
+### 查看索引
+GET http://47.98.199.80:9200/book
+### 删除Index
+DELETE http://47.98.199.80:9200/book
+
+### 列出每个 Index 所包含的 Type
+GET http://47.98.199.80:9200/_mapping?pretty=true
+
+### 新增记录
+PUT http://47.98.199.80:9200/book/science/1
+
+{
+  "name": "微信小程序",
+  "price": "20.88"
+}
+### 通过ID查询记录
+GET http://47.98.199.80:9200/book/science/1?pretty=true
+### 通过ID删除记录
+DELETE http://47.98.199.80:9200/book/science/1
+
+### Elasticsearch的作者们倾向于使用GET提交查询请求，因为他们觉得这个词相比POST来说，能更好的描述这种行为。然而，因为携带交互数据的GET请求
+### 并不被广泛支持，所以search API同样支持POST请求。
+### 查询所有数据，返回结果的 took字段表示该操作的耗时（单位为毫秒），timed_out字段表示是否超时，hits字段表示命中的记录；
+### 子字段的含义：total：返回记录数 max_score：最高的匹配程度 hits：返回的记录组成的数组
+### 返回的记录中，每条记录都有一个_score字段，表示匹配的程序，默认是按照这个字段降序排列。
+POST http://47.98.199.80:9200/book/science/_search
+
+{
+    "query": { "match": { "name": "微信" }},
+    "from": 0,
+    "size": 1
+}

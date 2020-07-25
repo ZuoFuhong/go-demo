@@ -10,7 +10,7 @@ require (
 	github.com/gin-gonic/gin v1.4.0
 	github.com/go-playground/validator/v10 v10.2.0
 	github.com/go-redis/redis v6.14.2+incompatible
-	github.com/go-sql-driver/mysql v1.4.1
+	github.com/go-sql-driver/mysql v1.5.0
 	github.com/golang/glog v0.0.0-20160126235308-23def4e6c14b
 	github.com/golang/protobuf v1.4.2
 	github.com/google/uuid v1.1.1 // indirect
@@ -22,7 +22,7 @@ require (
 	github.com/justinas/alice v1.2.0
 	github.com/onsi/ginkgo v1.12.0 // indirect
 	github.com/onsi/gomega v1.9.0 // indirect
-	github.com/pkg/errors v0.8.1
+	github.com/pkg/errors v0.9.1
 	github.com/spf13/viper v1.6.1
 	github.com/stretchr/testify v1.5.1
 	go.etcd.io/etcd v3.3.22+incompatible
@@ -37,6 +37,7 @@ require (
 	google.golang.org/protobuf v1.23.0
 	gopkg.in/alexcesaro/quotedprintable.v3 v3.0.0-20150716171945-2caba252f4dc // indirect
 	gopkg.in/gomail.v2 v2.0.0-20160411212932-81ebce5c23df
+	gopkg.in/olivere/elastic.v5 v5.0.86
 )
 
 // 解决etcd依赖包冲突
