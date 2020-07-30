@@ -3,6 +3,7 @@ package syntax
 import (
 	"fmt"
 	"sync"
+	"sync/atomic"
 	"testing"
 	"time"
 )
@@ -12,6 +13,12 @@ import (
 /////////////////////////////
 
 var mux = new(sync.Mutex)
+
+func Test_CAS(t *testing.T) {
+	var state int32
+	swapInt := atomic.CompareAndSwapInt32(&state, 0, 1)
+	fmt.Println(swapInt)
+}
 
 // sync.Mutex(排他锁、互斥锁)
 // sync.Mutex一旦被锁住，其它的Lock()操作就无法再获取它的锁，只有通过Unlock()释放锁之后才能通过Lock()继续获取锁。已有的锁会
@@ -68,4 +75,12 @@ func writeByte(name string) {
 	time.Sleep(time.Second * 2)
 	fmt.Println("writeByte name = " + name)
 	rwmux.Unlock()
+}
+
+var loadOnce sync.Once
+
+func Test_Sync_Once(t *testing.T) {
+	loadOnce.Do(func() {
+		fmt.Println("once")
+	})
 }
