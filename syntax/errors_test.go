@@ -43,6 +43,8 @@ func Test_TokenError(t *testing.T) {
 // 3.服务宕机恢复
 func Test_Panic(t *testing.T) {
 
+	// defer后边会接一个函数，但该函数不会立刻被执行，而是等到包含它的程序返回时(包含它的函数执行了return语句、运行到函数结尾
+	// 自动返回、对应的goroutine发生panic）defer函数才会被执行。通常用于资源释放、打印日志、异常捕获等。
 	defer func() {
 		// Recover 是一个Go语言的内建函数，可以让进入宕机流程中的 goroutine 恢复过来，recover 仅在延迟函数 defer 中有效，
 		// 在正常的执行过程中，调用 recover 会返回 nil 并且没有其他任何效果，如果当前的 goroutine 陷入恐慌，调用 recover
@@ -59,6 +61,8 @@ func Test_Panic(t *testing.T) {
 		}
 	}()
 
-	// 手动触发宕机
+	// panic内置函数停止当前goroutine的正常执行，当函数F调用panic时，函数F的正常执行被立即停止， 然后运行所有在F函数中的defer
+	// 函数，然后F返回到调用他的函数对于调用者G，F函数的行为就像panic 一样，终止G的执行并运行G中所defer函数，此过程会一直继续执行
+	// 到goroutine所有的函数。panic可以通过内置的recover来捕获。
 	panic("occur panic")
 }
