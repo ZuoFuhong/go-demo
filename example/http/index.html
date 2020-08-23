@@ -2,9 +2,38 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>XMLHttpRequest CORS</title>
 </head>
 <body>
-    <h2>hello world</h2>
+    <h2>XMLHttpRequest CORS</h2>
+
+    <button id="send">发送POST（application/x-www-form-urlencoded）</button>
+    <button id="sendJSON">发送POST（application/json）</button>
+    <script type="application/javascript">
+        document.getElementById('send').onclick = function (evt) {
+            let xhr = new XMLHttpRequest();
+            xhr.open("POST", "http://127.0.0.1:8080/index", true)
+            xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded")
+            xhr.setRequestHeader("x-Custome-Header", "true")
+
+            let params = new URLSearchParams()
+            params.append("name", "dazuo")
+            params.append("age", "24")
+            xhr.send(params)
+        }
+
+        document.getElementById('sendJSON').onclick = function (evt) {
+            let xhr = new XMLHttpRequest();
+            xhr.open("POST", "http://127.0.0.1:8080/index", true)
+            xhr.setRequestHeader("Content-Type", "application/json")
+            xhr.setRequestHeader("x-Custome-Header", "true")
+
+            let postData = JSON.stringify({
+                name: "dazuo",
+                age: 24
+            })
+            xhr.send(postData)
+        }
+    </script>
 </body>
 </html>
