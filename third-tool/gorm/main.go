@@ -87,6 +87,10 @@ func Query() {
 
 	u5 := new(User)
 	if err := db.Find(u5, User{Username: "dazuo"}).Error; err != nil {
+		if gorm.IsRecordNotFoundError(err) {
+			fmt.Println("not found")
+			return
+		}
 		log.Panic(err)
 	}
 	fmt.Println(u5)
