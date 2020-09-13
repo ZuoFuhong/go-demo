@@ -14,6 +14,7 @@ require (
 	github.com/bndr/gotabulate v1.1.2 // indirect
 	github.com/boltdb/bolt v1.3.1
 	github.com/coreos/etcd v3.3.22+incompatible
+	github.com/emirpasic/gods v1.12.0
 	github.com/fatih/structs v1.1.0 // indirect
 	github.com/fsnotify/fsnotify v1.4.9 // indirect
 	github.com/gin-gonic/gin v1.4.0
