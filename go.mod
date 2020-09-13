@@ -27,6 +27,7 @@ require (
 	github.com/gorilla/mux v1.7.4
 	github.com/gorilla/websocket v1.4.1
 	github.com/jinzhu/gorm v1.9.16
+	github.com/juju/ratelimit v1.0.1
 	github.com/julienschmidt/httprouter v1.3.0
 	github.com/justinas/alice v1.2.0
 	github.com/pkg/errors v0.9.1
