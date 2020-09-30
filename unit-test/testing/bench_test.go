@@ -1,22 +1,9 @@
-// Copyright (c) 2020 ZuoFuhong. All rights reserved.
-// Use of this source code is governed by a MIT style
-// license that can be found in the LICENSE file.
-
-package testify
+package testing
 
 import (
 	"testing"
-	"time"
 	"unicode"
 )
-
-// 示例：go test -v assert_test.go
-func TestBuiltin(t *testing.T) {
-	t.Logf("%s", t.Name())
-	time.Sleep(time.Second)
-	t.Skip()
-	//t.Fatal()
-}
 
 func TestPalindrome(t *testing.T) {
 	isPalindrome := IsPalindrome("boob")
@@ -38,17 +25,6 @@ func IsPalindrome(s string) bool {
 		}
 	}
 	return true
-}
-
-// 覆盖率
-// go test -v -run=Coverage assert_test.go eval.go
-// go test -v -run=Coverage -coverprofile=c.out assert_test.go eval.go
-// go tool cover -html=c.out
-func TestCoverage(t *testing.T) {
-	Eval('+')
-	Eval('-')
-	Eval('*')
-	Eval('/')
 }
 
 // 基准测试

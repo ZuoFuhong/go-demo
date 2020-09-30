@@ -2,24 +2,14 @@ package testify
 
 import (
 	"fmt"
-	"github.com/stretchr/testify/mock"
 	"testing"
+
+	"github.com/stretchr/testify/mock"
 )
 
 type Storage interface {
 	Store(key, value string) (int, error)
 	Load(key string) (string, error)
-}
-
-type RedisStorage struct {
-}
-
-func (s *RedisStorage) Store(key, value string) (int, error) {
-	panic("There is not wifi!")
-}
-
-func (s *RedisStorage) Load(key string) (string, error) {
-	panic("There is not wifi!")
 }
 
 // 测试用例，当真实对象不可用时，使用mock对象代替

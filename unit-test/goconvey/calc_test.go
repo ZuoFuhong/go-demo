@@ -8,7 +8,7 @@ import (
 
 // 运行测试
 // 1.终端窗口使用：go test -v
-// 2.Web浏览器使用：在响应的目录执行 goconvey，然后访问http://localhost:8080
+// 2.Web浏览器使用：在相应的目录执行 goconvey，然后访问http://localhost:8080
 
 // 参考文章：https://www.cnblogs.com/WayneZeng/p/9290711.html
 func Test_Add(t *testing.T) {

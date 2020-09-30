@@ -1,27 +1,19 @@
 package testify
 
 import (
-	"container/list"
 	"testing"
 
-	"github.com/stretchr/testify/require"
-
 	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
 )
 
 func Test_assert(t *testing.T) {
-	assertor := assert.New(t)
 	a := 2
 	b := 3
-	assertor.Equal(1, b-a, "they should be equal")
-
-	var l = list.New()
-	assertor.Nil(l.Front())
-
-	assert.True(t, true, "True is true")
+	assert.Equal(t, a+b, 5, "They should be equal")
 }
 
-// require没有返回值，而是终止当前测试
+// require相比assert没有返回值，而是终止当前测试
 func Test_require(t *testing.T) {
 	var name = "dazuo"
 	var age = 24
