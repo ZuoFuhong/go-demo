@@ -9,6 +9,7 @@ require (
 	github.com/CloudyKit/jet v2.1.2+incompatible // indirect
 	github.com/PuerkitoBio/goquery v1.5.1
 	github.com/afex/hystrix-go v0.0.0-20180502004556-fa1af6a1f4f5
+	github.com/agiledragon/gomonkey v2.0.2+incompatible // indirect
 	github.com/agrison/go-tablib v0.0.0-20160310143025-4930582c22ee // indirect
 	github.com/agrison/mxj v0.0.0-20160310142625-1269f8afb3b4 // indirect
 	github.com/bndr/gotabulate v1.1.2 // indirect
@@ -35,6 +36,7 @@ require (
 	github.com/justinas/alice v1.2.0
 	github.com/pkg/errors v0.9.1
 	github.com/prashantv/gostub v1.0.0
+	github.com/smartystreets/goconvey v1.6.4
 	github.com/spf13/viper v1.6.1
 	github.com/stretchr/testify v1.5.1
 	github.com/syndtr/goleveldb v1.0.0 // indirect
@@ -55,6 +57,7 @@ require (
 	gopkg.in/gomail.v2 v2.0.0-20160411212932-81ebce5c23df
 	gopkg.in/olivere/elastic.v5 v5.0.86
 	gopkg.in/yaml.v2 v2.3.0 // indirect
+	sigs.k8s.io/yaml v1.2.0 // indirect
 )
 
 // 解决etcd依赖包冲突
