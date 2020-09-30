@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"time"
 
 	"github.com/prashantv/gostub"
 )
@@ -29,17 +28,17 @@ func stubFunc() {
 	defer stubs.Reset()
 }
 
-// 3.为过程打桩
-var timeNow = time.Now
+// 3.为过程打桩（当一个函数没有返回值时，该函数我们一般称为过程。很多时候，我们将资源清理类函数定义为过程。）
+var CleanUp = cleanUp
 
-func GetDate() int {
-	return timeNow().Year()
+func cleanUp(val string) {
+	fmt.Println(val)
 }
 
 func stubPath() {
-	stubs := gostub.StubFunc(&timeNow, time.Date(2015, 6, 1, 0, 0, 0, 0, time.UTC))
+	stubs := gostub.StubFunc(&CleanUp)
 	defer stubs.Reset()
-	fmt.Println(GetDate())
+	CleanUp("Hello go")
 }
 
 func main() {
