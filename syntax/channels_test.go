@@ -57,13 +57,13 @@ func Test_close_chan(t *testing.T) {
 		close(channel) // 关闭Channel
 	}()
 	var more = true
-	var msg string
+	var val string
 	for more {
 		select {
-		// channel会返回两个值，一个是内容，一个是还有没有内容
-		case msg, more = <-channel:
+		// 当more为false, 表示通道已关闭
+		case val, more = <-channel:
 			if more {
-				fmt.Println(msg)
+				fmt.Println(val)
 			} else {
 				fmt.Println("channel closed!")
 			}

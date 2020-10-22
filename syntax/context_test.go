@@ -23,28 +23,20 @@ func Test_CancelCtx(t *testing.T) {
 	time.Sleep(time.Second * 2)
 }
 
-// 2.创建一个带有超时通知的 Context具体对象
+// 2.创建一个带有超时通知的Context，指定超时时间
 func Test_DeadlineCtx(t *testing.T) {
-	ctx, cancel := context.WithDeadline(context.Background(), time.Now().Add(2*time.Second))
+	ctx, _ := context.WithDeadline(context.Background(), time.Now().Add(2*time.Second))
 	go work(ctx, "work2")
 
 	time.Sleep(3 * time.Second)
-
-	cancel()
-
-	time.Sleep(time.Second * 2)
 }
 
-// 3.创建一个带有超时通知的 Context具体对象
+// 3.创建一个带有超时通知的Context，指定超时时长
 func Test_TimeoutCtx(t *testing.T) {
-	ctx, cancel := context.WithTimeout(context.Background(), time.Second*2)
+	ctx, _ := context.WithTimeout(context.Background(), time.Second*2)
 	go work(ctx, "work3")
 
 	time.Sleep(3 * time.Second)
-
-	cancel()
-
-	time.Sleep(time.Second * 2)
 }
 
 // 4.创建一个能够传递数据的 Context具体对象
@@ -55,14 +47,14 @@ func Test_ValueCtx(t *testing.T) {
 }
 
 func work(ctx context.Context, name string) {
-	for {
+	// 返回一个只读chan
+	c := ctx.Done()
+	more := true
+	for more {
 		select {
-		case <-ctx.Done():
+		// 当more为false,表示通道已关闭
+		case _, more = <-c:
 			println("work get msg to cannel", name)
-			return
-		default:
-			println("default ...", name)
-			time.Sleep(1 * time.Second)
 		}
 	}
 }
