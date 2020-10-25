@@ -25,6 +25,7 @@ require (
 	github.com/golang/glog v0.0.0-20160126235308-23def4e6c14b
 	github.com/golang/mock v1.4.4
 	github.com/golang/protobuf v1.4.2
+	github.com/golang/snappy v0.0.2
 	github.com/google/uuid v1.1.1
 	github.com/googollee/go-engine.io v1.4.3-0.20200220091802-9b2ab104b298
 	github.com/googollee/go-socket.io v1.4.3
