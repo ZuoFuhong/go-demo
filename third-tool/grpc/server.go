@@ -4,10 +4,11 @@ import (
 	"context"
 	"fmt"
 	"go-demo/third-tool/grpc/pb"
-	"google.golang.org/grpc"
 	"log"
 	"net"
 	"runtime"
+
+	"google.golang.org/grpc"
 )
 
 /*
@@ -19,18 +20,11 @@ import (
 type DataService struct{}
 
 func (s *DataService) GetUser(ctx context.Context, req *pb.UserRq) (*pb.UserRp, error) {
-	fmt.Println(req)
-
+	fmt.Printf("id = %d\n", req.GetId())
 	rp := &pb.UserRp{
 		Name: "welcome!",
 	}
 	return rp, nil
-}
-
-// 服务器端的单向调用的拦截器
-func UnaryServerInterceptor(ctx context.Context, req interface{}, info *grpc.UnaryServerInfo, handler grpc.UnaryHandler) (resp interface{}, err error) {
-	fmt.Println("req: ", req, " info: ", info)
-	return handler(ctx, req)
 }
 
 func main() {
@@ -39,7 +33,7 @@ func main() {
 	if e != nil {
 		panic(e)
 	}
-	s := grpc.NewServer(grpc.UnaryInterceptor(UnaryServerInterceptor))
+	s := grpc.NewServer()
 	pb.RegisterDataServer(s, &DataService{})
 	log.Print("RPC服务已开启")
 

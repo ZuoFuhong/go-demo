@@ -26,7 +26,7 @@ require (
 	github.com/golang/mock v1.4.4
 	github.com/golang/protobuf v1.4.2
 	github.com/golang/snappy v0.0.2
-	github.com/google/uuid v1.1.1
+	github.com/google/uuid v1.1.2
 	github.com/googollee/go-engine.io v1.4.3-0.20200220091802-9b2ab104b298
 	github.com/googollee/go-socket.io v1.4.3
 	github.com/gorilla/mux v1.7.4
@@ -51,7 +51,7 @@ require (
 	golang.org/x/crypto v0.0.0-20200820211705-5c72a883971a
 	golang.org/x/sys v0.0.0-20200806125547-5acd03effb82 // indirect
 	golang.org/x/tools v0.0.0-20200913032122-97363e29fc9b // indirect
-	google.golang.org/grpc v1.29.1
+	google.golang.org/grpc v1.33.1
 	google.golang.org/protobuf v1.23.0
 	gopkg.in/alexcesaro/quotedprintable.v3 v3.0.0-20150716171945-2caba252f4dc // indirect
 	gopkg.in/flosch/pongo2.v3 v3.0.0-20141028000813-5e81b817a0c4 // indirect
@@ -63,4 +63,4 @@ require (
 )
 
 // 解决etcd依赖包冲突
-replace google.golang.org/grpc => google.golang.org/grpc v1.26.0
+//replace google.golang.org/grpc => google.golang.org/grpc v1.26.0
