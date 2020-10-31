@@ -56,6 +56,7 @@ require (
 	gopkg.in/alexcesaro/quotedprintable.v3 v3.0.0-20150716171945-2caba252f4dc // indirect
 	gopkg.in/flosch/pongo2.v3 v3.0.0-20141028000813-5e81b817a0c4 // indirect
 	gopkg.in/gomail.v2 v2.0.0-20160411212932-81ebce5c23df
+	gopkg.in/h2non/gock.v1 v1.0.15
 	gopkg.in/olivere/elastic.v5 v5.0.86
 	gopkg.in/yaml.v2 v2.3.0 // indirect
 	sigs.k8s.io/yaml v1.2.0 // indirect
