@@ -3,9 +3,10 @@ package main
 import (
 	"context"
 	"fmt"
-	"github.com/coreos/etcd/clientv3"
 	"log"
 	"time"
+
+	"github.com/coreos/etcd/clientv3"
 )
 
 var client *clientv3.Client
