@@ -1,8 +1,14 @@
 package main
 
-//#include<stdio.h>
+/*
+#include<stdio.h>
+
+void SayHello(const char* s) {
+    puts(s);
+}
+*/
 import "C"
 
 func main() {
-	C.puts(C.CString("hello world\n"))
+	C.SayHello(C.CString("hello world"))
 }
