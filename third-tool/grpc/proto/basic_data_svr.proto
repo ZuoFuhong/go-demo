@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+option go_package = "grpc.example.basic_data_svr";
+
+message GetUserInfoReq {
+    int32 id = 1;
+}
+
+message GetUserInfoRsp {
+    string name = 1;
+    uint32 age = 2;
+    string city = 3;
+}
+
+service BasicDataSvr {
+    rpc GetUserInfo(GetUserInfoReq) returns (GetUserInfoRsp);
+}

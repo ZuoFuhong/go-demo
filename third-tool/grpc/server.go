@@ -2,8 +2,7 @@ package main
 
 import (
 	"context"
-	"fmt"
-	"go-demo/third-tool/grpc/pb"
+	pb "go_learing_notes/third-tool/grpc/proto"
 	"log"
 	"net"
 	"runtime"
@@ -11,34 +10,28 @@ import (
 	"google.golang.org/grpc"
 )
 
-/*
-	RPC服务端
+type BasicDataInfoService struct{}
 
-	编译命令：protoc --go_out=plugins=grpc:. *.proto
-*/
-
-type DataService struct{}
-
-func (s *DataService) GetUser(ctx context.Context, req *pb.UserRq) (*pb.UserRp, error) {
-	fmt.Printf("id = %d\n", req.GetId())
-	rp := &pb.UserRp{
-		Name: "welcome!",
+func (s *BasicDataInfoService) GetUserInfo(ctx context.Context, req *pb.GetUserInfoReq) (*pb.GetUserInfoRsp, error) {
+	log.Printf("reqData{id:%d}", req.GetId())
+	rsp := &pb.GetUserInfoRsp{
+		Name: "mars",
+		Age:  24,
+		City: "Wuhan",
 	}
-	return rp, nil
+	return rsp, nil
 }
 
 func main() {
 	runtime.GOMAXPROCS(runtime.NumCPU())
-	lis, e := net.Listen("tcp", "127.0.0.1:1024")
-	if e != nil {
-		panic(e)
+	lis, err := net.Listen("tcp", "127.0.0.1:1024")
+	if err != nil {
+		panic(err)
 	}
 	s := grpc.NewServer()
-	pb.RegisterDataServer(s, &DataService{})
-	log.Print("RPC服务已开启")
-
-	e = s.Serve(lis)
-	if e != nil {
-		panic(e)
+	pb.RegisterBasicDataSvrServer(s, &BasicDataInfoService{})
+	err = s.Serve(lis)
+	if err != nil {
+		panic(err)
 	}
 }
