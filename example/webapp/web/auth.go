@@ -1,8 +1,8 @@
 package web
 
 import (
-	"go-demo/example/webapp/defs"
-	"go-demo/example/webapp/session"
+	"go_learning_notes/example/webapp/defs"
+	"go_learning_notes/example/webapp/session"
 	"net/http"
 )
 

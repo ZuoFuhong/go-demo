@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	"go-demo/example/tcp/network"
+	"go_learning_notes/example/tcp/network"
 	"log"
 	"net"
 	"time"

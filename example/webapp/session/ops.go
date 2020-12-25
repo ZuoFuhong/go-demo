@@ -1,8 +1,8 @@
 package session
 
 import (
-	"go-demo/example/webapp/defs"
-	"go-demo/example/webapp/utils"
+	"go_learning_notes/example/webapp/defs"
+	"go_learning_notes/example/webapp/utils"
 	"sync"
 	"time"
 )

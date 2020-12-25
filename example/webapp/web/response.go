@@ -2,7 +2,7 @@ package web
 
 import (
 	"encoding/json"
-	"go-demo/example/webapp/defs"
+	"go_learning_notes/example/webapp/defs"
 	"io"
 	"net/http"
 )

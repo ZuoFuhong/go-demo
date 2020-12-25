@@ -3,7 +3,7 @@ package main
 import (
 	"context"
 	"fmt"
-	pb "go_learing_notes/third-tool/grpc/proto"
+	pb "go_learning_notes/third-tool/grpc/proto"
 	"testing"
 
 	"google.golang.org/grpc"

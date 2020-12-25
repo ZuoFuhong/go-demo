@@ -1,11 +1,12 @@
 package main
 
 import (
-	"github.com/julienschmidt/httprouter"
-	"go-demo/example/webapp/defs"
-	"go-demo/example/webapp/taskrunner"
-	"go-demo/example/webapp/web"
+	"go_learning_notes/example/webapp/defs"
+	"go_learning_notes/example/webapp/taskrunner"
+	"go_learning_notes/example/webapp/web"
 	"net/http"
+
+	"github.com/julienschmidt/httprouter"
 )
 
 type middlewareHandler struct {

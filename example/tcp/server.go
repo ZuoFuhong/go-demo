@@ -1,7 +1,7 @@
 package main
 
 import (
-	"go-demo/example/tcp/network"
+	"go_learning_notes/example/tcp/network"
 	"log"
 	"net"
 )

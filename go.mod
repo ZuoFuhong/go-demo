@@ -1,4 +1,4 @@
-module go_learing_notes
+module go_learning_notes
 
 go 1.14
 

@@ -2,7 +2,7 @@ package main
 
 import (
 	"context"
-	pb "go_learing_notes/third-tool/grpc/proto"
+	pb "go_learning_notes/third-tool/grpc/proto"
 	"log"
 	"net"
 	"runtime"
