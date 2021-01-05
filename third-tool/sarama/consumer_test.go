@@ -68,6 +68,7 @@ type Consumer struct {
 }
 
 func (consumer *Consumer) Setup(sarama.ConsumerGroupSession) error {
+	log.Printf("call Consumer.Setup\n")
 	close(consumer.ready)
 	return nil
 }
