@@ -55,8 +55,7 @@ func Test_exec(t *testing.T) {
 
 // Golang的 signal
 // golang中对信号的处理主要使用os/signal包中的两个方法：一个是notify方法用来监听收到的信号；一个是 stop方法用来取消监听。
-
-func Test_signal(t *testing.T) {
+func Test_Signal(t *testing.T) {
 	c := make(chan os.Signal, 1)
 
 	// 监听信号
@@ -65,12 +64,13 @@ func Test_signal(t *testing.T) {
 	signal.Notify(c, syscall.SIGHUP, syscall.SIGQUIT, syscall.SIGTERM, syscall.SIGINT)
 	for {
 		s := <-c
-		fmt.Println("discovery get a signal：", s.String())
+		fmt.Println("get a signal：", s.String())
 		switch s {
 		case syscall.SIGQUIT, syscall.SIGTERM, syscall.SIGINT:
-			fmt.Println("discovery quit !!!")
+			fmt.Println("quit !!!")
 			return
 		case syscall.SIGHUP:
+			// 当session关闭时, 忽略SIGHUP信号, 保持守护进程继续运行
 		default:
 			return
 		}
