@@ -9,6 +9,9 @@ import (
 )
 
 // 通道（chan）-通信
+// chan   	read-write
+// <-chan 	read only
+// chan<- 	write only
 func Test_Chan(t *testing.T) {
 	// 声明通道
 	var _ chan string
@@ -23,7 +26,6 @@ func Test_Chan(t *testing.T) {
 	// len 代表没有被读取的元素数，cap 代表整个通道的容量。无缓冲的通道既可以用于通信，也可以用于两个 goroutine 的同步，
 	// 有缓冲的通道主要用于通信。
 	//ch := make(chan string, 10)
-
 	go func() {
 		for i := 0; i < 5; i++ {
 			// 发送数据
@@ -37,35 +39,31 @@ func Test_Chan(t *testing.T) {
 	for data := range ch {
 		fmt.Println("接收的数据：", data)
 	}
-
-	// 关闭通道
-	close(ch)
 }
 
-// Channel的关闭
-// 关闭Channel可以通知对方内容发送完了，不用再等了
-func Test_close_chan(t *testing.T) {
+// 关闭Channel
+func Test_CloseChan(t *testing.T) {
 	channel := make(chan string)
-	rand.Seed(time.Now().Unix())
-
-	// 向channel发送随机个数的message
 	go func() {
-		cnt := rand.Intn(10)
-		for i := 0; i < cnt; i++ {
+		rand.Seed(time.Now().Unix())
+		for i := 0; i < 5; i++ {
+			time.Sleep(time.Second)
+			// 向channel发送字符串
 			channel <- fmt.Sprintf("message -%2d", i)
 		}
-		close(channel) // 关闭Channel
+		// 关闭Channel
+		close(channel)
 	}()
-	var more = true
-	var val string
-	for more {
+
+	for true {
 		select {
 		// 当more为false, 表示通道已关闭
-		case val, more = <-channel:
+		case val, more := <-channel:
 			if more {
 				fmt.Println(val)
 			} else {
 				fmt.Println("channel closed!")
+				return
 			}
 		}
 	}
