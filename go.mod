@@ -19,6 +19,7 @@ require (
 	github.com/emirpasic/gods v1.12.0
 	github.com/fatih/structs v1.1.0 // indirect
 	github.com/fsnotify/fsnotify v1.4.9 // indirect
+	github.com/fvbock/endless v0.0.0-20170109170031-447134032cb6
 	github.com/gin-gonic/gin v1.4.0
 	github.com/go-playground/validator/v10 v10.2.0
 	github.com/go-redis/redis/v7 v7.4.0
