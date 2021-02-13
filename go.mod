@@ -13,6 +13,7 @@ require (
 	github.com/agiledragon/gomonkey v2.0.2+incompatible
 	github.com/agrison/go-tablib v0.0.0-20160310143025-4930582c22ee // indirect
 	github.com/agrison/mxj v0.0.0-20160310142625-1269f8afb3b4 // indirect
+	github.com/armon/consul-api v0.0.0-20180202201655-eb2c6b5be1b6 // indirect
 	github.com/bndr/gotabulate v1.1.2 // indirect
 	github.com/boltdb/bolt v1.3.1
 	github.com/coreos/etcd v3.3.22+incompatible
@@ -32,7 +33,7 @@ require (
 	github.com/googollee/go-engine.io v1.4.3-0.20200220091802-9b2ab104b298
 	github.com/googollee/go-socket.io v1.4.3
 	github.com/gorilla/mux v1.7.4
-	github.com/gorilla/websocket v1.4.1
+	github.com/gorilla/websocket v1.4.2
 	github.com/jinzhu/gorm v1.9.16
 	github.com/juju/ratelimit v1.0.1
 	github.com/julienschmidt/httprouter v1.3.0
@@ -40,10 +41,12 @@ require (
 	github.com/pkg/errors v0.9.1
 	github.com/prashantv/gostub v1.0.0
 	github.com/smartystreets/goconvey v1.6.4
-	github.com/spf13/viper v1.6.1
+	github.com/spf13/cobra v1.1.3
+	github.com/spf13/viper v1.7.0
 	github.com/stretchr/testify v1.6.1
 	github.com/syndtr/goleveldb v1.0.0 // indirect
 	github.com/tealeg/xlsx v1.0.5 // indirect
+	github.com/xordataexchange/crypt v0.0.3-0.20170626215501-b2862e3d0a77 // indirect
 	github.com/xormplus/builder v0.0.0-20200331055651-240ff40009be // indirect
 	github.com/xormplus/xorm v0.0.0-20200731130200-6811f3bde592
 	go.mongodb.org/mongo-driver v1.3.3
@@ -60,7 +63,6 @@ require (
 	gopkg.in/gomail.v2 v2.0.0-20160411212932-81ebce5c23df
 	gopkg.in/h2non/gock.v1 v1.0.15
 	gopkg.in/olivere/elastic.v5 v5.0.86
-	gopkg.in/yaml.v2 v2.3.0 // indirect
 	sigs.k8s.io/yaml v1.2.0 // indirect
 )
 
