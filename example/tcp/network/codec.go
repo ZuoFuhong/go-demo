@@ -2,10 +2,11 @@ package network
 
 import (
 	"encoding/binary"
-	"github.com/pkg/errors"
 	"net"
 	"strconv"
 	"time"
+
+	"github.com/pkg/errors"
 )
 
 const (
@@ -21,6 +22,10 @@ type Codec struct {
 	Buffer Buffer
 }
 
+// 协议
+// --------------------------------------
+// | Type(2字节) | len(2字节) | body(len) |
+// --------------------------------------
 func NewCodec(conn *net.TCPConn) *Codec {
 	return &Codec{
 		Conn:   conn,
