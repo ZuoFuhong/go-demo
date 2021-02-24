@@ -62,6 +62,12 @@ func Test_create_Slice(t *testing.T) {
 	for index, value := range slice {
 		fmt.Printf("Index: %d Value: %d\n", index, value)
 	}
+
+	// 6.双冒号
+	s := []int{0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10}
+	// 新切片的内容是[3:6)，实际引用的数组是[3:8)；可以控制切片底层数组的的大小，即：cap()
+	s = s[3:6:8]
+	fmt.Printf("slice = %v, len = %d, cap = %d\n", s, len(s), cap(s))
 }
 
 // 内建函数 append() 可以为切片动态添加元素
