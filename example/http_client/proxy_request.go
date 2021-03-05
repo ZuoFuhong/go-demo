@@ -16,6 +16,7 @@ var proxy = func(_ *http.Request) (*url.URL, error) {
 
 var httpClient = http.Client{Transport: &http.Transport{Proxy: proxy}}
 
+// proxyRequest 使用代理
 func proxyRequest() {
 	request, err := http.NewRequest("GET", "http://www.baidu.com", strings.NewReader(""))
 	if err != nil {
@@ -30,25 +31,24 @@ func proxyRequest() {
 	fmt.Printf("Status: %s\nBody: %s\n", resp.Status, string(bodyBytes))
 }
 
-func pureHttpRequest() {
+// pureProxyRequest TCP发HTTP协议包
+func pureProxyRequest() {
 	// 直出
-	addr, err := net.ResolveTCPAddr("tcp", "14.215.177.39:80")
+	conn, err := net.Dial("tcp", "www.baidu.com:80")
 	// 代理
-	//addr, err := net.ResolveTCPAddr("tcp", "127.0.0.1:9999")
+	//conn, err := net.Dial("tcp", "127.0.0.1:9999")
 	if err != nil {
 		log.Panic(err)
 	}
-	conn, err := net.DialTCP("tcp", nil, addr)
-	if err != nil {
-		log.Panic(err)
-	}
-	// request
-	n, _ := conn.Write([]byte(`GET / HTTP/1.1
-Host: www.baidu.com
-User-Agent: curl/7.64.1
-Accept: */*
-
-`))
+	// 注意：
+	// 1.在http协议中使用的是 CRLF，即：\r\n
+	// 2.在golang中多行文本 `` 无法理解 \r\n 转义字符。
+	reqStr := "GET http://www.baidu.com/ HTTP/1.1\r\n" +
+		"Host: www.baidu.com\r\n" +
+		"User-Agent: curl/7.64.1\r\n" +
+		"connection: close\r\n" +
+		"\r\n"
+	n, _ := conn.Write([]byte(reqStr))
 	fmt.Printf("write n = %d\n", n)
 	buf := make([]byte, 0, 4096)
 	n, _ = conn.Read(buf[len(buf):cap(buf)])
