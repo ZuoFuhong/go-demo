@@ -66,7 +66,7 @@ func Test_GetInfoOK(t *testing.T) {
 	}
 }
 
-func TestGetInfoUnauthorized(t *testing.T) {
+func Test_GetInfoUnauthorized(t *testing.T) {
 	ts := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusUnauthorized)
 		_, _ = w.Write(weatherRespBytes)
